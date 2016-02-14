@@ -2,8 +2,6 @@ package main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +18,7 @@ public class Ichi {
 		
 		String test = "test";
 		JButton btn = new JButton("test");
+		JButton btn2 = new JButton("test2");
 		
 		
 		btn.addActionListener(new ActionListener() {
@@ -28,7 +27,18 @@ public class Ichi {
 					new anmeldung();
 			}
 		});
+		
+		
+		btn2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Registrierung();
+			}
+		});
+		
+		
 		fenster.add(btn, "cell 1 1");
+		fenster.add(btn2, "cell 1 2");
 		fenster.setVisible(true);
 		}
 }
