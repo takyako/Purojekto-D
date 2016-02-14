@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class hash {
 	
-	public String hash(String hash)
+	public static String hash(String hash)
 	{
 		String encryptedString = null;
 		MessageDigest messageDigest;

@@ -25,8 +25,7 @@ public class Ichi {
 		btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println(encryptedString);
+					new anmeldung();
 			}
 		});
 		fenster.add(btn, "cell 1 1");
