@@ -14,29 +14,13 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
-public class anmeldung {
+public class anmeldung 
+{
 
-	public anmeldung(){
+	public anmeldung()
+	{
 		
 		JDialog dlgAnmeldung = new JDialog();
-		
-			Action commit = new AbstractAction() 
-			{
-				@Override
-				public void actionPerformed(ActionEvent e) 
-				{
-						
-					switch( txtName.getText() )
-					{
-					case "daniel": 
-						{
-						System.out.println(txtName.getText());
-						String zeug = hash.hash(pwField.getText());
-						System.out.println(zeug);
-						}	
-					}
-				}
-			};
 				
 						
 			JTextField txtName = new JTextField();
@@ -62,7 +46,26 @@ public class anmeldung {
 				}
 			});
 				
-				
+			
+			Action commit = new AbstractAction() 
+			{
+				@Override
+				public void actionPerformed(ActionEvent e) 
+				{
+					
+					switch( txtName.getText() )
+					{
+					case "daniel": 
+					{
+						System.out.println(txtName.getText());
+						String zeug = hash.hash(pwField.getText());
+						System.out.println(zeug);
+					}	
+					}
+				}
+			};
+
+			
 			dlgAnmeldung.setSize(500, 500);
 			dlgAnmeldung.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dlgAnmeldung.getContentPane().setLayout
