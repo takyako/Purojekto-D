@@ -25,15 +25,12 @@ public class anmeldung
 						
 			JTextField txtName = new JTextField();
 			txtName.setColumns(10);
-			txtName.addActionListener(commit);
 				
 				
 			JPasswordField pwField = new JPasswordField();
-			pwField.addActionListener(commit);
 		
 		
 			JButton btnAnmelden = new JButton("Anmelden");
-			btnAnmelden.addActionListener(commit);
 				
 			
 			JButton btnAbbrechen = new JButton("Abbrechen");
@@ -66,6 +63,11 @@ public class anmeldung
 			};
 
 			
+			btnAnmelden.addActionListener(commit);
+			pwField.addActionListener(commit);
+			txtName.addActionListener(commit);
+
+			
 			dlgAnmeldung.setSize(500, 500);
 			dlgAnmeldung.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dlgAnmeldung.getContentPane().setLayout
@@ -76,6 +78,7 @@ public class anmeldung
 			dlgAnmeldung.getContentPane().add(btnAbbrechen, "cell 1 4");
 			dlgAnmeldung.pack();
 			dlgAnmeldung.setVisible(true);
+			dlgAnmeldung.setModal(true);
 		
 	}
 }
