@@ -18,59 +18,61 @@ public class anmeldung {
 
 	public anmeldung(){
 		
-		JDialog anmeldung = new JDialog();
-		anmeldung.setSize(500, 500);
-		anmeldung.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		anmeldung.getContentPane().setLayout
-		(new MigLayout("", "[80px][63.00px,grow][70.00px][75.00][120px][80px]", "[30px][30px][30px][30px][30px][30px][30px][30px][30px]"));
+		JDialog dlgAnmeldung = new JDialog();
 		
-		JTextField txtName = new JTextField();
-		anmeldung.getContentPane().add(txtName, "cell 1 2 2 1,growx");
-		txtName.setColumns(10);
-		
-		
-		JPasswordField pwField = new JPasswordField();
-		anmeldung.getContentPane().add(pwField, "cell 1 3 2 1,growx");
-		
-		
-		JButton btnAnmelden = new JButton("Anmelden");
-	
-		anmeldung.getContentPane().add(btnAnmelden, "cell 1 5");
-		
-		
-		JButton btnAbbrechen = new JButton("Abbrechen");
-			btnAbbrechen.addActionListener(new ActionListener() {
-				
+			Action commit = new AbstractAction() 
+			{
 				@Override
-				public void actionPerformed(ActionEvent e) {
-					anmeldung.dispose();
-					
+				public void actionPerformed(ActionEvent e) 
+				{
+						
+					switch( txtName.getText() )
+					{
+					case "daniel": 
+						{
+						System.out.println(txtName.getText());
+						String zeug = hash.hash(pwField.getText());
+						System.out.println(zeug);
+						}	
+					}
+				}
+			};
+				
+						
+			JTextField txtName = new JTextField();
+			txtName.setColumns(10);
+			txtName.addActionListener(commit);
+				
+				
+			JPasswordField pwField = new JPasswordField();
+			pwField.addActionListener(commit);
+		
+		
+			JButton btnAnmelden = new JButton("Anmelden");
+			btnAnmelden.addActionListener(commit);
+				
+			
+			JButton btnAbbrechen = new JButton("Abbrechen");
+			btnAbbrechen.addActionListener(new ActionListener() 
+			{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+				{
+				dlgAnmeldung.dispose();	
 				}
 			});
-		anmeldung.getContentPane().add(btnAbbrechen, "cell 2 5");
-		
-		Action commit = new AbstractAction() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
 				
-		
-				switch( txtName.getText() ){
 				
-				case "daniel": 
-					{
-					System.out.println(txtName.getText());
-					String zeug = hash.hash(pwField.getText());
-					System.out.println(zeug);
-					}	
-				}
+			dlgAnmeldung.setSize(500, 500);
+			dlgAnmeldung.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dlgAnmeldung.getContentPane().setLayout
+			(new MigLayout("", "[80px,fill][120px,fill][80.00px,fill]", "[30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill]"));
+			dlgAnmeldung.getContentPane().add(txtName, "cell 1 1,growx");
+			dlgAnmeldung.getContentPane().add(pwField, "cell 1 2,growx");
+			dlgAnmeldung.getContentPane().add(btnAnmelden, "cell 1 3");
+			dlgAnmeldung.getContentPane().add(btnAbbrechen, "cell 1 4");
+			dlgAnmeldung.pack();
+			dlgAnmeldung.setVisible(true);
 		
-			}
-		};
-		txtName.addActionListener(commit);
-		btnAnmelden.addActionListener(commit);
-		pwField.addActionListener(commit);
-		
-		anmeldung.setVisible(true);
 	}
 }
