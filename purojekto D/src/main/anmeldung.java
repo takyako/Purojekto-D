@@ -21,6 +21,11 @@ public class anmeldung
 	{
 		
 		JDialog dlgAnmeldung = new JDialog();
+		dlgAnmeldung.setModal(true);
+		dlgAnmeldung.setSize(500, 500);
+		dlgAnmeldung.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dlgAnmeldung.getContentPane().setLayout
+		(new MigLayout("", "[80px,fill][120px,fill][80.00px,fill]", "[30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill]"));
 				
 						
 			JTextField txtName = new JTextField();
@@ -68,17 +73,12 @@ public class anmeldung
 			txtName.addActionListener(commit);
 
 			
-			dlgAnmeldung.setSize(500, 500);
-			dlgAnmeldung.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dlgAnmeldung.getContentPane().setLayout
-			(new MigLayout("", "[80px,fill][120px,fill][80.00px,fill]", "[30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill]"));
 			dlgAnmeldung.getContentPane().add(txtName, "cell 1 1,growx");
 			dlgAnmeldung.getContentPane().add(pwField, "cell 1 2,growx");
 			dlgAnmeldung.getContentPane().add(btnAnmelden, "cell 1 3");
 			dlgAnmeldung.getContentPane().add(btnAbbrechen, "cell 1 4");
 			dlgAnmeldung.pack();
 			dlgAnmeldung.setVisible(true);
-			dlgAnmeldung.setModal(true);
 		
 	}
 }
