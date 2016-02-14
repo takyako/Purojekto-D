@@ -14,7 +14,10 @@ public class Ichi {
 		JFrame fenster = new JFrame() ;
 		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenster.setSize(800, 600);
-		fenster.getContentPane().setLayout(new MigLayout("", "[50px][50px,fill][][][][][]", "[50px][50px,fill][][][][][][]"));
+		fenster.getContentPane().setLayout
+		(new MigLayout("", "[120px,fill][120px,fill][120px,fill][120px,fill]", "[30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill]"));
+		fenster.pack();
+		
 		
 		String test = "test";
 		JButton btn = new JButton("test");
