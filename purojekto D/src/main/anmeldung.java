@@ -59,7 +59,7 @@ public class anmeldung {
 				
 				case "daniel": 
 					{
-					System.out.println("HHHHHHHHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+					System.out.println(txtName.getText());
 					String zeug = hash.hash(pwField.getText());
 					System.out.println(zeug);
 					}	
