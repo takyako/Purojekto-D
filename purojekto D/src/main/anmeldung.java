@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
@@ -16,39 +18,50 @@ public class anmeldung {
 	private JTextField txtName;
 	private JPasswordField pwField;
 	public anmeldung(){
+		
 		JDialog anmeldung = new JDialog();
 		anmeldung.setSize(500, 500);
 		anmeldung.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		anmeldung.getContentPane().setLayout
 		(new MigLayout("", "[80px][63.00px,grow][70.00px][75.00][120px][80px]", "[30px][30px][30px][30px][30px][30px][30px][30px][30px]"));
 		
+		
+		Action commit = new AbstractAction() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			try {
+				switch( txtName.getText() ){
+				
+				case "daniel": 
+					{
+					System.out.println("HHHHHHHHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+					String zeug = hash.hash(pwField.getText());
+					System.out.println(zeug);
+					}	
+				}
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}	
+			}
+		};
+		
+		
 		JTextField txtName = new JTextField();
 		anmeldung.getContentPane().add(txtName, "cell 1 2 2 1,growx");
 		txtName.setColumns(10);
 		
+		
 		pwField = new JPasswordField();
 		anmeldung.getContentPane().add(pwField, "cell 1 3 2 1,growx");
 		
+		
 		JButton btnAnmelden = new JButton("Anmelden");
-			btnAnmelden.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-					
-					switch( txtName.getText() ){
-					
-					case "daniel": {
-						System.out.println("HHHHHHHHHHHHAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-						String zeug = hash.hash(pwField.getText());
-						System.out.println(zeug);}
-					
-					} 
-					
-					
-				}
-			});
+			btnAnmelden.addActionListener(commit);
+	
 		anmeldung.getContentPane().add(btnAnmelden, "cell 1 5");
+		
 		
 		JButton btnAbbrechen = new JButton("Abbrechen");
 			btnAbbrechen.addActionListener(new ActionListener() {
