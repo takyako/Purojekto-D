@@ -25,16 +25,7 @@ public class Ichi {
 		btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String encryptedString = null;
-				MessageDigest messageDigest;
-				try {
-					messageDigest = MessageDigest.getInstance("SHA-256");
-					messageDigest.update(test.getBytes());
-					encryptedString = new String(messageDigest.digest());
-				} catch (NoSuchAlgorithmException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
 				System.out.println(encryptedString);
 			}
 		});
