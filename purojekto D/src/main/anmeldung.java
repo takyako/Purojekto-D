@@ -23,7 +23,7 @@ public class anmeldung
 		dlgAnmeldung.setSize(500, 500);
 		dlgAnmeldung.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dlgAnmeldung.getContentPane().setLayout
-		(new MigLayout("", "[80.00,fill][120.00,fill][80.00.00,fill]", "[30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill]"));
+		(new MigLayout("", "[80.00,fill][120.00,fill][80.00,fill]", "[30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill]"));
 				
 						
 			JTextField txtName = new JTextField();
