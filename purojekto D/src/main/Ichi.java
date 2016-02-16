@@ -1,15 +1,13 @@
 package main;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import java.awt.event.*;
+import javax.swing.*;
 
 import net.miginfocom.swing.MigLayout;
 
 public class Ichi extends JFrame
 {
+	private static final long serialVersionUID = 1L;
 	static JButton btn;
 	static JButton btn2;
 	public Ichi()
