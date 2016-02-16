@@ -1,15 +1,7 @@
 package main;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
+import java.awt.event.*;
+import javax.swing.*;
 import net.miginfocom.swing.MigLayout;
 
 public class anmeldung 
