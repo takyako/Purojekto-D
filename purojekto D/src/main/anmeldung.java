@@ -1,17 +1,15 @@
 package main;
 
-import javax.swing.JDialog;
-import javax.swing.JPasswordField;
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 import net.miginfocom.swing.MigLayout;
 
 public class anmeldung 
@@ -25,7 +23,7 @@ public class anmeldung
 		dlgAnmeldung.setSize(500, 500);
 		dlgAnmeldung.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		dlgAnmeldung.getContentPane().setLayout
-		(new MigLayout("", "[80px,fill][120px,fill][80.00px,fill]", "[30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill]"));
+		(new MigLayout("", "[80.00,fill][120.00,fill][80.00,fill]", "[30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill]"));
 				
 						
 			JTextField txtName = new JTextField();
@@ -51,6 +49,8 @@ public class anmeldung
 			
 			Action commit = new AbstractAction() 
 			{
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public void actionPerformed(ActionEvent e) 
 				{
