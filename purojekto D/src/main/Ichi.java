@@ -10,6 +10,8 @@ import net.miginfocom.swing.MigLayout;
 
 public class Ichi extends JFrame
 {
+	private static final long serialVersionUID = 1L;
+	
 	static JButton btn;
 	static JButton btn2;
 	public Ichi()
@@ -17,8 +19,8 @@ public class Ichi extends JFrame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800,600);
 		getContentPane().setLayout
-		(new MigLayout("", "[120px,fill][120px,fill][120px,fill][120px,fill][120px,fill]", 
-		"[30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill]"));
+		(new MigLayout("", "[120.00,fill][120.00,fill][120.00,fill][120.00,fill][120.00,fill]", 
+		"[30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill]"));
 		pack();
 		btn = new JButton("Anmelden");
 		btn2 = new JButton("Registrieren");

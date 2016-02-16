@@ -17,7 +17,7 @@ public class Registrierung {
 	public Registrierung() {
 		JDialog dlgRegistrierung = new JDialog();
 		dlgRegistrierung.setModal(true);
-		dlgRegistrierung.getContentPane().setLayout(new MigLayout("", "[60px,fill][100px,fill][100px,fill][60px]", "[20px,fill][20px,fill][20px,fill][20px,fill][20px,fill][20px,fill][20px,fill][20px,fill][20px,fill]"));
+		dlgRegistrierung.getContentPane().setLayout(new MigLayout("", "[60.00,fill][100.00,fill][100.00,fill][60.00]", "[20.00,fill][20.00,fill][20.00,fill][20.00,fill][20.00,fill][20.00,fill][20.00,fill][20.00,fill][20.00,fill]"));
 		dlgRegistrierung.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 		
