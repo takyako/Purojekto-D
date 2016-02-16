@@ -15,13 +15,13 @@ public class Ichi {
 		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenster.setSize(800, 600);
 		fenster.getContentPane().setLayout
-		(new MigLayout("", "[120px,fill][120px,fill][120px,fill][120px,fill]", "[30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill]"));
+		(new MigLayout("", "[120px,fill][120px,fill][120px,fill][120px,fill][120px,fill]", "[30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill][30px,fill]"));
 		fenster.pack();
 		
 		
 		String test = "test";
-		JButton btn = new JButton("test");
-		JButton btn2 = new JButton("test2");
+		JButton btn = new JButton("Anmelden");
+		JButton btn2 = new JButton("Registrieren");
 		
 		
 		btn.addActionListener(new ActionListener() {
@@ -40,8 +40,8 @@ public class Ichi {
 		});
 		
 		
-		fenster.add(btn, "cell 1 1");
-		fenster.add(btn2, "cell 1 2");
+		fenster.add(btn, "cell 2 3");
+		fenster.add(btn2, "cell 2 4");
 		fenster.setVisible(true);
 		}
 }
