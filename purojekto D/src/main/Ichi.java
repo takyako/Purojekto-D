@@ -36,7 +36,7 @@ public class Ichi extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-					new anmeldung();
+					new Anmeldung();
 			}
 		});
 		

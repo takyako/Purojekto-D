@@ -4,10 +4,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import net.miginfocom.swing.MigLayout;
 
-public class anmeldung 
+public class Anmeldung 
 {
 
-	public anmeldung()
+	public Anmeldung()
 	{
 		
 		JDialog dlgAnmeldung = new JDialog();
@@ -48,7 +48,7 @@ public class anmeldung
 				{	
 					
 					System.out.println(txtName.getText()+" Vor DB-Check");
-					String insHash = hash.calc(pwField.getText());
+					String insHash = Hash.calc(pwField.getText());
 					String dbHash = Sql.getHash(txtName.getText());
 					System.out.println(dbHash);
 					if(insHash==dbHash) System.out.println("successfully logged in");

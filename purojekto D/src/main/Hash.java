@@ -3,7 +3,7 @@ package main;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class hash {
+public class Hash {
 	
 	public static String calc(String hash) 
 	{
