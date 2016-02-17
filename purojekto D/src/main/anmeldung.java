@@ -45,17 +45,15 @@ public class anmeldung
 
 				@Override
 				public void actionPerformed(ActionEvent e) 
-				{
+				{	
 					
-					switch( txtName.getText() )
-					{
-					case "daniel": 
-					{
-						System.out.println(txtName.getText());
-						String zeug = hash.hash(pwField.getText());
-						System.out.println(zeug);
-					}	
-					}
+					System.out.println(txtName.getText()+" Vor DB-Check");
+					String insHash = hash.calc(pwField.getText());
+					String dbHash = Sql.getHash(txtName.getText());
+					System.out.println(dbHash);
+					if(insHash==dbHash) System.out.println("successfully logged in");
+					else System.out.println("failed to log in");
+					
 				}
 			};
 
