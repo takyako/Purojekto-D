@@ -1,12 +1,14 @@
 package main;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -41,6 +43,24 @@ public class Registrierung {
 		    }
 		};
 		
+		
+		btnBestaetigen.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int ret = Jgame.insertUser(txtBenutzername.getText(), txtPassword.getText());
+				if (ret > 0) {
+					JOptionPane.showMessageDialog(null, txtBenutzername.getText() + " wurde erfolgreich angelegt", "Erfolg!!! (oder so)", JOptionPane.PLAIN_MESSAGE, null);
+				} else
+					JOptionPane.showMessageDialog(null, "Fehler beim anlegen von " + txtBenutzername.getText(), "Kein Erfolg!!! (oder so)", JOptionPane.PLAIN_MESSAGE, null);
+			}
+		});
+		
+		btnAbbrechen.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dlgRegistrierung.dispose();
+			}
+		});
 		
 		dlgRegistrierung.getContentPane().add(new JLabel("Benutzername"), "cell 1 1");
 		dlgRegistrierung.getContentPane().add(txtBenutzername, "cell 3 1");

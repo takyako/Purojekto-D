@@ -1,9 +1,12 @@
 package main;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Jgame 
 {	
-	private static String url = "jdbc:mysql://localhost:3306/jgame";
+	private static String url = "jdbc:mysql://barcreeper.sytes.net:3306/jgame";
 	private static String driver = "com.mysql.jdbc.Driver";
 	private static String sName = "martin";
 	private static String sPassword = "1234";
@@ -76,6 +79,26 @@ public class Jgame
 			System.out.println("Error: "+e.getMessage());
 		}
 		
+	}
+	
+	public static int insertUser(String username, String password)
+	{
+		int ret = 0;
+		try
+		{
+			connect();
+			pSt = con.prepareStatement("INSERT INTO user (hash, username) VALUES(?, ?) ");
+			pSt.setString(1, Hash.calc(password));
+			pSt.setString(2, username);
+			ret = pSt.executeUpdate();
+			disconnect();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error: "+e.getMessage());
+		}
+	
+		return ret;
 	}
 }
 
