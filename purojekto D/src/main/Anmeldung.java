@@ -31,10 +31,10 @@ public class Anmeldung
 			JButton btnAbbrechen = new JButton("Abbrechen");
 			btnAbbrechen.addActionListener(new ActionListener() 
 			{
-			@Override
-			public void actionPerformed(ActionEvent e) 
+				@Override
+				public void actionPerformed(ActionEvent e) 
 				{
-				dlgAnmeldung.dispose();	
+					dlgAnmeldung.dispose();	
 				}
 			});
 				
@@ -47,11 +47,12 @@ public class Anmeldung
 				public void actionPerformed(ActionEvent e) 
 				{	
 					
-					System.out.println(txtName.getText()+" Vor DB-Check");
+					Sql.setHash("daniel", "daniel");
 					String insHash = Hash.calc(pwField.getText());
 					String dbHash = Sql.getHash(txtName.getText());
+					System.out.println(Hash.calc("daniel"));
 					System.out.println(dbHash);
-					if(insHash==dbHash) System.out.println("successfully logged in");
+					if(insHash.equals(dbHash)) System.out.println("successfully logged in");
 					else System.out.println("failed to log in");
 					
 				}
