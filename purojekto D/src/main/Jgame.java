@@ -1,7 +1,7 @@
 package main;
 import java.sql.*;
 
-public class Sql 
+public class Jgame 
 {	
 	private static String url = "jdbc:mysql://localhost:3306/jgame";
 	private static String driver = "com.mysql.jdbc.Driver";
