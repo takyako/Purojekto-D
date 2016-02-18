@@ -51,7 +51,7 @@ public class Anmeldung
 					String dbHash = Jgame.getHash(txtName.getText());
 					System.out.println(dbHash);
 					System.out.println(insHash);
-					if(insHash==dbHash) System.out.println("successfully logged in");
+					if(insHash.equals(dbHash)) System.out.println("successfully logged in");
 					else System.out.println("failed to log in");
 					
 				}
