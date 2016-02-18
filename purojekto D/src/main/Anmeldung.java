@@ -49,8 +49,7 @@ public class Anmeldung
 					
 					Sql.setHash("daniel", "daniel");
 					String insHash = Hash.calc(pwField.getText());
-					String dbHash = Sql.getHash(txtName.getText());
-					System.out.println(Hash.calc("daniel"));
+					String dbHash = Jgame.getHash(txtName.getText());
 					System.out.println(dbHash);
 					if(insHash.equals(dbHash)) System.out.println("successfully logged in");
 					else System.out.println("failed to log in");
