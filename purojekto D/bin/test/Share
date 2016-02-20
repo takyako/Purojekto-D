@@ -1,0 +1,17 @@
+Action action = new AbstractAction()
+{
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        System.out.println("some action");
+    }
+};
+
+JTextField textField = new JTextField(10);
+textField.addActionListener( action );
+Now the event is fired when the Enter key is used.
+
+Also, an added benefit is that you can share the listener with a button even if you don't want to make the button a default button.
+
+JButton button = new JButton("Do Something");
+button.addActionListener( action );

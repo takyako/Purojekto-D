@@ -28,7 +28,7 @@ public class Ni
 		public void paint(Graphics g) {
 			super.paint(g);
 			
-			BufferedImage img = BilderLaden.laden("lib/bground.png");
+			BufferedImage img = BilderLaden.laden("src/lib/bground.png");
 			
 //			g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), this);
 			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
