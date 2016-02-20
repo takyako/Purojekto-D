@@ -19,10 +19,6 @@ public class Ichi extends JFrame
 		(new MigLayout("", "[120.00,fill][120.00,fill][120.00,fill][120.00,fill][120.00,fill]", 
 		"[30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill][30.00,fill]"));
 		pack();
-		btn = new JButton("Anmelden");
-		btn2 = new JButton("Registrieren");
-		add(btn, "cell 2 3");
-		add(btn2, "cell 2 4");
 		setVisible(true);
 	}
 	
@@ -30,13 +26,17 @@ public class Ichi extends JFrame
 	public static void main(String[]args)
 	{
 		JFrame fenster = new Ichi() ;
+		btn = new JButton("Anmelden");
+		btn2 = new JButton("Registrieren");
+		fenster.add(btn, "cell 2 3");
+		fenster.add(btn2, "cell 2 4");
 		
 		btn.addActionListener(new ActionListener() 
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-					new Anmeldung();
+					new Anmeldung(fenster);
 			}
 		});
 		

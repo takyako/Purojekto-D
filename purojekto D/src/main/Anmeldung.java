@@ -7,7 +7,7 @@ import net.miginfocom.swing.MigLayout;
 public class Anmeldung 
 {
 
-	public Anmeldung()
+	public Anmeldung(JFrame Ichi)
 	{
 		
 		JDialog dlgAnmeldung = new JDialog();
@@ -51,7 +51,13 @@ public class Anmeldung
 					String dbHash = Jgame.getHash(txtName.getText());
 					System.out.println(dbHash);
 					System.out.println(insHash);
-					if(insHash.equals(dbHash)) System.out.println("successfully logged in");
+					if(insHash.equals(dbHash)) 
+					{
+						System.out.println("successfully logged in");
+						new Ni();
+						Ichi.dispose();
+						dlgAnmeldung.dispose();
+					}
 					else System.out.println("failed to log in");
 					
 				}
