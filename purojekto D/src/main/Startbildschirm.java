@@ -13,7 +13,7 @@ public class Startbildschirm extends Fenster {
 
 		setLayout(new BorderLayout());
 		try {
-			add(new Picture("src/lib/bild.png"), BorderLayout.CENTER);
+			add(new Picture("src/lib/bgroundStart.png"), BorderLayout.CENTER);
 		} catch (IOException e) {
 			System.out.println("Kein Bild gefunden: " + e.getMessage());
 		}

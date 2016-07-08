@@ -8,21 +8,21 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class Picture extends JPanel{
-	
+public class Picture extends JPanel {
+
 	private static final long serialVersionUID = 1L;
-	private static BufferedImage bg ;
-	
-	
-	public Picture(String picture) throws IOException{
-		        bg = ImageIO.read(new File(picture));
+	private BufferedImage bg;
+
+
+	public Picture(String picture) throws IOException {
+		bg = ImageIO.read(new File(picture));
 	}
-	
-	
-	public void paintComponent(Graphics g){
+
+
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(bg, this.getWidth() , this.getHeight(), this);
-		
+		g.drawImage(bg, 0, 0, null);
+
 	}
 
 }
