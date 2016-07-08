@@ -12,13 +12,13 @@ public class Startbildschirm extends Fenster {
 	public Startbildschirm() {
 
 		setLayout(new BorderLayout());
+
 		try {
 			add(new Picture("src/lib/bgroundStart.png"), BorderLayout.CENTER);
 		} catch (IOException e) {
 			System.out.println("Kein Bild gefunden: " + e.getMessage());
 		}
-
 		repaint();
-	}
 
+	}
 }
