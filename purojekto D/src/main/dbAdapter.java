@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Jgame 
+public class dbAdapter 
 {	
 	private static String url = "jdbc:mysql://barcreeper.sytes.net:3306/jgame";
 	private static String driver = "com.mysql.jdbc.Driver";

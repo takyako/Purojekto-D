@@ -5,13 +5,13 @@ import java.awt.event.*;
 
 import net.miginfocom.swing.MigLayout;
 
-public class Ichi extends JFrame
+public class Anmeldefenster extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
 	static JButton btn;
 	static JButton btn2;
-	public Ichi()
+	public Anmeldefenster()
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800,600);
@@ -25,7 +25,7 @@ public class Ichi extends JFrame
   
 	public static void main(String[]args)
 	{
-		JFrame fenster = new Ichi() ;
+		JFrame fenster = new Anmeldefenster() ;
 		btn = new JButton("Anmelden");
 		btn2 = new JButton("Registrieren");
 		fenster.add(btn, "cell 2 3");

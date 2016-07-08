@@ -47,7 +47,7 @@ public class Registrierung {
 
 						if ( String.valueOf(txtPassword.getPassword()).equals(String.valueOf(txtPassword2.getPassword())) ) {
 
-							int ret = Jgame.insertUser(txtBenutzername.getText(), String.valueOf(txtPassword.getPassword()));
+							int ret = dbAdapter.insertUser(txtBenutzername.getText(), String.valueOf(txtPassword.getPassword()));
 							if (ret > 0) {
 								JOptionPane.showMessageDialog(null, txtBenutzername.getText() + " wurde erfolgreich angelegt.", "Erfolg!!! (oder so)", JOptionPane.PLAIN_MESSAGE, null);
 								dlgRegistrierung.dispose();

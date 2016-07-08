@@ -47,14 +47,14 @@ public class Anmeldung
 				public void actionPerformed(ActionEvent e) 
 				{	
 					
-					String insHash = Hash.calc(pwField.getText());
-					String dbHash = Jgame.getHash(txtName.getText());
+					String insHash = Hash.calc(pwField.getPassword().toString());
+					String dbHash = dbAdapter.getHash(txtName.getText());
 					System.out.println(dbHash);
 					System.out.println(insHash);
 					if(insHash.equals(dbHash)) 
 					{
 						System.out.println("successfully logged in");
-						new Ni();
+						new Startbildschirm();
 						Ichi.dispose();
 						dlgAnmeldung.dispose();
 					}
