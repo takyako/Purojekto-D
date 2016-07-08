@@ -47,7 +47,7 @@ public class Registrierung {
 						if (String.valueOf(txtPassword.getPassword())
 								.equals(String.valueOf(txtPassword2.getPassword()))) {
 
-							int ret = dbAdapter.insertUser(txtBenutzername.getText(),
+							int ret = DB_Adapter.insertUser(txtBenutzername.getText(),
 									String.valueOf(txtPassword.getPassword()));
 							if (ret > 0) {
 								JOptionPane.showMessageDialog(null,
