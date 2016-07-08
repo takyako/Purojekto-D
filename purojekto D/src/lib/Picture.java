@@ -8,32 +8,20 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class Picture  {
+public class Picture extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
 	private static BufferedImage bg ;
-	private static JPanel panel ;
-	private static Graphics g ;
 	
-	public static JPanel get(String picture) throws IOException {
-		
-
+	
+	public Picture(String picture) throws IOException{
 		        bg = ImageIO.read(new File(picture));
-
-		    
-		 	g = bg.getGraphics() ;
-		    panel = new JPanel(){
-				private static final long serialVersionUID = 1L;
-
-			@Override
-	            protected void paintComponent(Graphics g) {
-	                super.paintComponent(Picture.g);
-	                g.drawImage(bg, this.getWidth() , this.getHeight(), this);
-	            }
-			};
-			
-			return panel ;
-	        
-		
+	}
+	
+	
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		g.drawImage(bg, this.getWidth() , this.getHeight(), this);
 		
 	}
 
