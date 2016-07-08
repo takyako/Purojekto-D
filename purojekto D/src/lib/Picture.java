@@ -14,13 +14,11 @@ public class Picture  {
 	private static JPanel panel ;
 	private static Graphics g ;
 	
-	public static JPanel get(String picture) {
+	public static JPanel get(String picture) throws IOException {
 		
-		 try {
+
 		        bg = ImageIO.read(new File(picture));
-		    } 
-		 catch (IOException e) {
-		    }
+
 		    
 		 	g = bg.getGraphics() ;
 		    panel = new JPanel(){

@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
@@ -13,7 +14,12 @@ public class Startbildschirm
 		JFrame fenster = new Anmeldefenster();
 		
 		fenster.setLayout(new BorderLayout());
-		fenster.add(Picture.get("src/lib/bground.png"), BorderLayout.CENTER);
+		try{
+			fenster.add(Picture.get("src/lib/bgroundStart.png"), BorderLayout.CENTER);			
+		}catch(IOException e)
+		{
+			System.out.println("Kein Bild gefunden: "+e.getMessage());
+		}
 	}
 	
 	
