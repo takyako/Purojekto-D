@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import lib.Picture;
 
-public class Startbildschirm extends abstractFenster {
+public class Startbildschirm extends Fenster {
 	private static final long serialVersionUID = 1L;
 
 
