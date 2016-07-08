@@ -3,7 +3,7 @@ package main;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class Anmeldefenster extends Fenster implements ActionListener {
+public class Anmeldefenster extends abstractFenster implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	static JButton btn;
