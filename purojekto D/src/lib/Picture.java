@@ -1,6 +1,7 @@
 package lib;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,12 @@ public class Picture extends JPanel {
 
 	public Picture(String picture) throws IOException {
 		bg = ImageIO.read(new File(picture));
+	}
+
+
+	public Picture(String picture, int width, int height) throws IOException{
+		bg = ImageIO.read(new File(picture));
+		bg.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 	}
 
 
