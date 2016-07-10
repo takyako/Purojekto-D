@@ -11,8 +11,9 @@ public class Spielfeld {
 	public Spielfeld(String name) {
 		this.name = name;
 	}
-	
-	public void addCharakter(Charakter gamer){
+
+
+	public void addCharakter(Charakter gamer) {
 		chars.add(gamer);
 	}
 
