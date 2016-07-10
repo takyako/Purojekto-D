@@ -4,15 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.IOException;
 
-import javax.swing.JPanel;
-
 import lib.Picture;
 
 public class Startbildschirm extends Fenster {
 	private static final long serialVersionUID = 1L;
 
-	JPanel pnl;
-	JPanel player;
+	Picture pnl;
+//	JPanel player;
 	Dimension d = this.getSize();
 
 
@@ -21,7 +19,8 @@ public class Startbildschirm extends Fenster {
 		setLayout(new BorderLayout());
 		try {
 			pnl = new Picture("src/lib/bgroundStart.png");
-			player = new Picture("src/lib/char.png");
+//			player = new Picture("src/lib/char.png");
+			pnl.addCharacter("src/lib/char.png", 50, 50);
 		} catch (IOException e) {
 			System.out.println("Kein Bild gefunden: " + e.getMessage());
 		}
@@ -30,7 +29,6 @@ public class Startbildschirm extends Fenster {
 //		add(player);
 //		player.setSize(166, 200);
 //		player.setLocation(10, 10);
-		
 		
 		
 		
