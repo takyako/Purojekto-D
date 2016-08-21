@@ -6,9 +6,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Main2 extends BasicGame{
+public class Main extends BasicGame{
 
-	public Main2(String title) {
+	public Main(String title) {
 		super(title);
 		
 
@@ -17,8 +17,9 @@ public class Main2 extends BasicGame{
 	public static void main(String[] args) {
 		AppGameContainer app;
 		try {
-			app = new AppGameContainer(new Main2("Title"));
+			app = new AppGameContainer(new Main("Title"));
 			app.setTargetFrameRate(60);
+			System.out.println("nifd  fx");
 			
 		
 			
