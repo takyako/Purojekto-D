@@ -19,7 +19,7 @@ public class Main extends BasicGame{
 		try {
 			app = new AppGameContainer(new Main("Title"));
 			app.setTargetFrameRate(60);
-			System.out.println("ni  fx");
+			System.out.println("nifd  fx");
 			
 		
 			
