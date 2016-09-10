@@ -27,7 +27,6 @@ public class Menu extends StateBasedGame{
 			app.start();
 			
 			
-			
 		} catch (SlickException ex) {
 			ex.printStackTrace();
 		}
