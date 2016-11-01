@@ -39,7 +39,32 @@ public class MapManager {
 		Image steinOREImg = sheet.getSubImage(4, 0);
 		Image steinOLEImg = sheet.getSubImage(4, 1);
 		
-
+		
+		Image steinLOZImg = sheet.getSubImage(5, 0);
+		Image steinLUZImg = sheet.getSubImage(5, 1);
+		Image steinROZImg = sheet.getSubImage(6, 0);
+		Image steinRUZImg = sheet.getSubImage(6, 1);
+		Image steinORZImg = sheet.getSubImage(8, 0);
+		Image steinOLZImg = sheet.getSubImage(7, 0);
+		Image steinURZImg = sheet.getSubImage(8, 1);
+		Image steinULZImg = sheet.getSubImage(7, 1);
+		Image steinORAImg = sheet.getSubImage(3, 3);
+		Image steinULAImg = sheet.getSubImage(4, 2);
+		Image steinURAImg = sheet.getSubImage(3, 2);
+		Image steinOLAImg = sheet.getSubImage(4, 3);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		Image grundgesteinImg = sheet.getSubImage(0, 3);
+		
 		
 		Image moosImg = sheet.getSubImage(10, 1);
 
@@ -48,7 +73,7 @@ public class MapManager {
 		
 
 		
-		//jede map müsste 100*100 groß sein. Später das in ner extra Datei (oder so) gespeichert wird wie groß die ist und andere Infos. Oder die größe vllt anders herausfinden
+		//jede map mï¿½sste 100*100 groï¾Ÿ sein. Spèˆ©er das in ner extra Datei (oder so) gespeichert wird wie groï¾Ÿ die ist und andere Infos. Oder die grî”†e vllt anders herausfinden
 		
 		float[] points;
 		
@@ -119,6 +144,62 @@ public class MapManager {
 					block[i][j] = new Block(Block.blockType.SteinULE, steinULEImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
 					break;
 					
+					
+				case SteinLOZ:
+					block[i][j] = new Block(Block.blockType.SteinLOZ, steinLOZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinLUZ:
+					block[i][j] = new Block(Block.blockType.SteinLUZ, steinLUZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinROZ:
+					block[i][j] = new Block(Block.blockType.SteinROZ, steinROZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinRUZ:
+					block[i][j] = new Block(Block.blockType.SteinRUZ, steinRUZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinORZ:
+					block[i][j] = new Block(Block.blockType.SteinORZ, steinORZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinOLZ:
+					block[i][j] = new Block(Block.blockType.SteinOLZ, steinOLZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinURZ:
+					block[i][j] = new Block(Block.blockType.SteinURZ, steinURZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinULZ:
+					block[i][j] = new Block(Block.blockType.SteinULZ, steinULZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinORA:
+					block[i][j] = new Block(Block.blockType.SteinORA, steinORAImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinOLA:
+					block[i][j] = new Block(Block.blockType.SteinOLA, steinOLAImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinURA:
+					block[i][j] = new Block(Block.blockType.SteinURA, steinURAImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+				case SteinULA:
+					block[i][j] = new Block(Block.blockType.SteinULA, steinULAImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					break;
+					
+					
+					
+					
+					
+				case Grundgestein:
+					block[i][j] = new Block(Block.blockType.Grundgestein, grundgesteinImg, null);
+					break;
 					
 				case Moos:
 					block[i][j] = new Block(Block.blockType.Moos, moosImg, null/*new Rectangle(0+i*16, 0+j*16, 16, 16)*/);

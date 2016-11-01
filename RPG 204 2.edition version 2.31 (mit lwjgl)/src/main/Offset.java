@@ -33,6 +33,9 @@ public class Offset {
 	private static int leftGeschwindigkeit = 0;
 	
 	
+	private static String lastMove = Down;
+	
+	
 	public static Block[][] block;
 
 	
@@ -62,19 +65,23 @@ public class Offset {
 		switch(direction) {
 		case Offset.Up:
 			moveUp = true;
+			lastMove = Offset.Up;
 			break;
 			
 		case Offset.Down:
 			moveDown = true;
+			lastMove = Offset.Down;
 			break;
 			
 		case Offset.Left:
 			moveLeft = true;
+			lastMove = Offset.Left;
 			break;
 			
 		case Offset.Right:
 			moveRight = true;
-		break;
+			lastMove = Offset.Right;
+			break;
 		
 		}
 	}
@@ -222,9 +229,13 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll
 	}
 
 	
+	////////
 	
 	
 	
+	public static String getLastMove() {
+		return lastMove;
+	}
 	
 	
 	

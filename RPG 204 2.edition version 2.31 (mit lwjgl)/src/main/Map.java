@@ -22,7 +22,7 @@ public class Map {
 	
 	
 	/**
-	 * Gibt den definierte Pixel der Map zurück
+	 * Gibt den definierte Pixel der Map zurï¿½ck
 	 * @param x
 	 * @param y
 	 * @param width
@@ -61,9 +61,39 @@ public class Map {
 			return Block.blockType.SteinURE;
 		case 0x556060:
 			return Block.blockType.SteinULE;
+			
+		
+		case 0x606960:
+			return Block.blockType.SteinRUZ;
+		case 0x607D60:
+			return Block.blockType.SteinROZ;
+		case 0x605F60:
+			return Block.blockType.SteinLUZ;
+		case 0x604B60:
+			return Block.blockType.SteinLOZ;
+		case 0x4B6060:
+			return Block.blockType.SteinORZ;
+		case 0x5F6060:
+			return Block.blockType.SteinOLZ;
+		case 0x7D6060:
+			return Block.blockType.SteinURZ;
+		case 0x696060:
+			return Block.blockType.SteinULZ;
+
+		case 0x5F5F50:
+			return Block.blockType.SteinORA;
+		case 0x5F5F70:
+			return Block.blockType.SteinURA;
+		case 0x5F5F80:
+			return Block.blockType.SteinULA;
+		case 0x5F5F40:
+			return Block.blockType.SteinOLA;
+			
+			
 		}
 		
-		return Block.blockType.Luft;
+//		return Block.blockType.Luft;
+		return Block.blockType.Grundgestein;
 	}
 	
 }

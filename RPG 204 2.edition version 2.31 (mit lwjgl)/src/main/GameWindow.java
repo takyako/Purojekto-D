@@ -5,7 +5,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
@@ -13,16 +12,24 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class GameWindow extends BasicGameState{
 
-	private SpriteSheet sheet;
+//	private SpriteSheet sheet;
 	private static Block[][] block;
 	
 	private static Input input;
+	
+	private static boolean debug = false;
+	
+	private static double delta;
+	
+	private int whilePlayerMoving = 0;
+	private int whichPlayer = 0;
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		
 		//um den Spieler zu zeichnen
-		sheet = new SpriteSheet("img/spritesheet.png", 16, 16);	//player bekommt später ne eigene Klasse
+//		sheet = new SpriteSheet("img/spritesheet.png", 16, 16);	//player bekommt spaeter ne eigene Klasse
+		Player.initPlayer();
 		
 		//map init
 		MapManager map = new MapManager("map1.png");
@@ -34,6 +41,9 @@ public class GameWindow extends BasicGameState{
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
+		
+//for (int i = 0; i < delta/10; i++) { // TODO spaeter mit delta rumspielen
+		
 		if (input.isKeyDown(Input.KEY_W)) {
 			Offset.move(Offset.Up);
 		} else {
@@ -60,23 +70,86 @@ public class GameWindow extends BasicGameState{
 
 //		Offset.tick();
 		Offset.tick(block, ((gc.getWidth()/2-32))/2, ((gc.getHeight()/2-32))/2);
+//}	
+		GameWindow.delta = delta;
 	}
 	
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
 		
-		//Blöcke zeichnen
+		//Bloecke zeichnen
 		for (int i = 0; i < block.length; i++) {
 			for (int j = 0; j < block[0].length; j++) {
 				block[i][j].getImg().draw(i*64+Offset.getX(), j*64+Offset.getY(), 64, 64);
 			}
 		}
 		
+
 		
 		//player zeichnen
-		sheet.getSubImage(0, 12).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+//		sheet.getSubImage(0, 12).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+		if (Offset.getMoveDown()) {
+			whilePlayerMoving++;
+			if (whilePlayerMoving%10 == 0) {
+				whichPlayer++;
+			}
+			
+			if (whichPlayer%2 == 0) {
+				Player.getTile(1, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			} else {
+				Player.getTile(2, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			}
+		} else if (Offset.getMoveUp()){ 
+			whilePlayerMoving++;
+			if (whilePlayerMoving%10 == 0) {
+				whichPlayer++;
+			}
+			
+			if (whichPlayer%2 == 0) {
+				Player.getTile(4, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			} else {
+				Player.getTile(5, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			}
+		} else if (Offset.getMooveRight()) {
+			whilePlayerMoving++;
+			if (whilePlayerMoving%10 == 0) {
+				whichPlayer++;
+			}
+			
+			if (whichPlayer%2 == 0) {
+				Player.getTile(7, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			} else {
+				Player.getTile(6, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			}
+		} else if (Offset.getMoveLeft()) {
+			whilePlayerMoving++;
+			if (whilePlayerMoving%10 == 0) {
+				whichPlayer++;
+			}
+			
+			if (whichPlayer%2 == 0) {
+				Player.getTile(0, 1).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			} else {
+				Player.getTile(8, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			}
+		} else {
+			whilePlayerMoving = 0;
+			whichPlayer = 0;
+			if (Offset.getLastMove() == Offset.Down) {
+				Player.getTile(0, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			} else if (Offset.getLastMove() == Offset.Up) {
+				Player.getTile(3, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			} else if (Offset.getLastMove() == Offset.Left) {
+				Player.getTile(8, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			} else if (Offset.getLastMove() == Offset.Right) {
+				Player.getTile(6, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
+			}
+		}
 
 
+		
+		
+		
 		//Debug infos zeichnen
 		
 //		g.setFont(new Font("TimesRoman",Font.PLAIN, 16));
@@ -91,8 +164,9 @@ public class GameWindow extends BasicGameState{
 		g.drawString("PosX: " + ((gc.getWidth()/2-32) - Offset.getX())/2, 20, 220);
 		g.drawString("PosY: " + ((gc.getHeight()/2-32) - Offset.getY())/2, 20, 240);
 
+		g.drawString("Delta: " + delta, 20, 260);
 		
-		if (false) {
+		if (debug) {
 		//Hitbox des Spielers zeichnen
 		g.draw(new Rectangle(((gc.getWidth()/2-32)), ((gc.getHeight()/2-32)), 64, 64));
 

@@ -41,15 +41,29 @@ public class Block {
 		SteinOL,
 		SteinUR,
 		SteinUL,
-		SteinORE,
+		SteinORE, //oben rechts ecke
 		SteinOLE,
 		SteinURE,
 		SteinULE,
+		SteinLOZ, //links, oben zu
+		SteinLUZ,
+		SteinROZ,
+		SteinRUZ,
+		SteinORZ,
+		SteinOLZ,
+		SteinURZ,
+		SteinULZ,
+		SteinORA, //oben rechts alternativ
+		SteinOLA,
+		SteinURA,
+		SteinULA,
+		
+		Grundgestein, //meh
 		
 		
 		Moos,
 		
-		Luft //Nichts
+		Luft //Nichts (wird im moment nicht benutzt)
 
 	}
 	
