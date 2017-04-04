@@ -13,5 +13,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="RPG 204 2.edition version 2.31 (mit lwjgl)/lib/lwjgl/native/windows"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/java-json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
