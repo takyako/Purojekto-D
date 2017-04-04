@@ -22,7 +22,12 @@ public class GameWindow extends BasicGameState{
 	private static double delta;
 	
 	private int whilePlayerMoving = 0;
-	private int whichPlayer = 0;
+	private int whichPlayerPicture = 0;
+	
+	private Inventar inventar;
+	private ItemManager itemManager;
+
+	
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
@@ -37,12 +42,28 @@ public class GameWindow extends BasicGameState{
 		
 		//input init
 		input = gc.getInput();
+		
+		
+		
+		inventar = new Inventar();
+		itemManager = new ItemManager();
+
+		
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta) throws SlickException {
 		
-//for (int i = 0; i < delta/10; i++) { // TODO spaeter mit delta rumspielen
+//for (int i = 0; i < delta/17; i++) { // TODO spaeter mit delta rumspielen
+		
+		//Zeug
+		
+		if (input.isKeyPressed(Input.KEY_F9)) {
+			debug = !debug;
+		}
+		
+		
+		//Bewegen
 		
 		if (input.isKeyDown(Input.KEY_W)) {
 			Offset.move(Offset.Up);
@@ -67,20 +88,44 @@ public class GameWindow extends BasicGameState{
 		} else {
 			Offset.moveNotMore(Offset.Right);
 		}
+		
+		
+		//Bewegung ausführen
 
 //		Offset.tick();
 		Offset.tick(block, ((gc.getWidth()/2-32))/2, ((gc.getHeight()/2-32))/2);
 //}	
+		
+		
+		
+		
+		//anderes
+		
+		if (input.isKeyPressed(Input.KEY_I)) { //Inventar öffnen
+			inventar.showInventar();
+		}
+		
+		
+		//Test
+		if(input.isKeyPressed(Input.KEY_T)) {
+			inventar.putItemIn(1, 1);
+		}
+		//Test
+		
+		
+		
 		GameWindow.delta = delta;
 	}
 	
+
+	
 	@Override
-	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
+	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {  //TODO nur das was man sieht zeichnen, nicht alle Hitboxen beachten. Alles auf ein Bild packen und dieses Zeichnen, statt alles einzeln zu zeichnen!!!
 		
 		//Bloecke zeichnen
 		for (int i = 0; i < block.length; i++) {
 			for (int j = 0; j < block[0].length; j++) {
-				block[i][j].getImg().draw(i*64+Offset.getX(), j*64+Offset.getY(), 64, 64);
+				block[i][j].getImg().draw(i*64+Offset.getX(), j*64+Offset.getY(), 64, 64); // kp ob das so gut ist die Bilder im Array zu speichern, da dies redundant ist und vllt nicht so gut für die Performance
 			}
 		}
 		
@@ -91,10 +136,10 @@ public class GameWindow extends BasicGameState{
 		if (Offset.getMoveDown()) {
 			whilePlayerMoving++;
 			if (whilePlayerMoving%10 == 0) {
-				whichPlayer++;
+				whichPlayerPicture++;
 			}
 			
-			if (whichPlayer%2 == 0) {
+			if (whichPlayerPicture%2 == 0) {
 				Player.getTile(1, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
 			} else {
 				Player.getTile(2, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
@@ -102,10 +147,10 @@ public class GameWindow extends BasicGameState{
 		} else if (Offset.getMoveUp()){ 
 			whilePlayerMoving++;
 			if (whilePlayerMoving%10 == 0) {
-				whichPlayer++;
+				whichPlayerPicture++;
 			}
 			
-			if (whichPlayer%2 == 0) {
+			if (whichPlayerPicture%2 == 0) {
 				Player.getTile(4, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
 			} else {
 				Player.getTile(5, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
@@ -113,10 +158,10 @@ public class GameWindow extends BasicGameState{
 		} else if (Offset.getMooveRight()) {
 			whilePlayerMoving++;
 			if (whilePlayerMoving%10 == 0) {
-				whichPlayer++;
+				whichPlayerPicture++;
 			}
 			
-			if (whichPlayer%2 == 0) {
+			if (whichPlayerPicture%2 == 0) {
 				Player.getTile(7, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
 			} else {
 				Player.getTile(6, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
@@ -124,17 +169,17 @@ public class GameWindow extends BasicGameState{
 		} else if (Offset.getMoveLeft()) {
 			whilePlayerMoving++;
 			if (whilePlayerMoving%10 == 0) {
-				whichPlayer++;
+				whichPlayerPicture++;
 			}
 			
-			if (whichPlayer%2 == 0) {
+			if (whichPlayerPicture%2 == 0) {
 				Player.getTile(0, 1).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
 			} else {
 				Player.getTile(8, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
 			}
 		} else {
 			whilePlayerMoving = 0;
-			whichPlayer = 0;
+			whichPlayerPicture = 0;
 			if (Offset.getLastMove() == Offset.Down) {
 				Player.getTile(0, 0).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
 			} else if (Offset.getLastMove() == Offset.Up) {
@@ -149,9 +194,24 @@ public class GameWindow extends BasicGameState{
 
 		
 		
+		//inventar zeichnen
+		if (inventar.isInventarOpen()) {
+			inventar.getInventarPicture().draw(64*2, 64, 64*6, 64*6);
+			
+			
+			for (int i = 0; i < inventar.getInventarSize(); i++) {
+				for (int j = 0; j < inventar.getInventarSize(); j++) {
+					itemManager.getItemPicture(inventar.getID(i, j)).draw(i*63+64*2, j*63+64, 63, 63); // Bild zeichnen
+					g.drawString(String.valueOf(inventar.getMenge(i, j)), i*63+64*2+5, j*63+64+5); // Menge zeichnen
+				}
+			}
+		}
+		
+		
 		
 		//Debug infos zeichnen
-		
+		if (debug) {
+			
 //		g.setFont(new Font("TimesRoman",Font.PLAIN, 16));
 		g.drawString("MoveUp: " + Offset.getMoveUp(), 20, 60);
 		g.drawString("MoveDown: " + Offset.getMoveDown(), 20, 80);
@@ -166,9 +226,9 @@ public class GameWindow extends BasicGameState{
 
 		g.drawString("Delta: " + delta, 20, 260);
 		
-		if (debug) {
+//		if (debug) {
 		//Hitbox des Spielers zeichnen
-		g.draw(new Rectangle(((gc.getWidth()/2-32)), ((gc.getHeight()/2-32)), 64, 64));
+		g.draw(new Rectangle(((gc.getWidth()/2-32)+Player.hitboxX*2), ((gc.getHeight()/2-32)+Player.hitboxY*2), Player.hitboxWidth*2, Player.hitboxHeight*2));
 
 		//restliche Hitboxen zeichnen
 		g.scale(2, 2);

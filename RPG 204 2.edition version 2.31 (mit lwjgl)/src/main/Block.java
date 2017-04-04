@@ -58,6 +58,10 @@ public class Block {
 		SteinURA,
 		SteinULA,
 		
+		
+		
+		tuerZu,
+		
 		Grundgestein, //meh
 		
 		

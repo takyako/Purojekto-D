@@ -10,6 +10,10 @@ public class Player {
 	private static int exp;
 	private static int strength;
 	private static SpriteSheet playerSheet = null;
+	public static int hitboxX = 4;
+	public static int hitboxY = 0;
+	public static int hitboxWidth = 24;
+	public static int hitboxHeight = 32;
 	
 	public Player() {}
 	

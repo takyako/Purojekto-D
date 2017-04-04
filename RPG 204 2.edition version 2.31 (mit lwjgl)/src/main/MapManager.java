@@ -35,8 +35,8 @@ public class MapManager {
 		Image steinULImg = sheet.getSubImage(0, 2);
 		
 		Image steinUREImg = sheet.getSubImage(3, 0);
-		Image steinULEImg = sheet.getSubImage(3, 1);
-		Image steinOREImg = sheet.getSubImage(4, 0);
+		Image steinULEImg = sheet.getSubImage(4, 0);
+		Image steinOREImg = sheet.getSubImage(3, 1);
 		Image steinOLEImg = sheet.getSubImage(4, 1);
 		
 		
@@ -57,6 +57,11 @@ public class MapManager {
 		
 		
 		
+		
+		
+		
+		
+		Image tuerZu = sheet.getSubImage(0, 9);
 		
 		
 		
@@ -129,7 +134,7 @@ public class MapManager {
 					break;
 					
 				case SteinORE:
-					block[i][j] = new Block(Block.blockType.SteinORE, steinOREImg, new Rectangle(0+i*32, 24+j*32, 8, 8));
+					block[i][j] = new Block(Block.blockType.SteinORE, steinOREImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
 					break;
 					
 				case SteinOLE:
@@ -141,59 +146,76 @@ public class MapManager {
 					break;
 					
 				case SteinULE:
-					block[i][j] = new Block(Block.blockType.SteinULE, steinULEImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					block[i][j] = new Block(Block.blockType.SteinULE, steinULEImg, new Rectangle(0+i*32, 24+j*32, 8, 8));
 					break;
 					
 					
 				case SteinLOZ:
-					block[i][j] = new Block(Block.blockType.SteinLOZ, steinLOZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					block[i][j] = new Block(Block.blockType.SteinLOZ, steinLOZImg, new Rectangle(0+i*32, 0+j*32, 8, 32));
 					break;
 					
 				case SteinLUZ:
-					block[i][j] = new Block(Block.blockType.SteinLUZ, steinLUZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					block[i][j] = new Block(Block.blockType.SteinLUZ, steinLUZImg, new Rectangle(0+i*32, 0+j*32, 8, 32));
 					break;
 					
 				case SteinROZ:
-					block[i][j] = new Block(Block.blockType.SteinROZ, steinROZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					block[i][j] = new Block(Block.blockType.SteinROZ, steinROZImg, new Rectangle(24+i*32, 0+j*32, 8, 32));
 					break;
 					
 				case SteinRUZ:
-					block[i][j] = new Block(Block.blockType.SteinRUZ, steinRUZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					block[i][j] = new Block(Block.blockType.SteinRUZ, steinRUZImg, new Rectangle(24+i*32, 0+j*32, 8, 32));
 					break;
 					
 				case SteinORZ:
-					block[i][j] = new Block(Block.blockType.SteinORZ, steinORZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					block[i][j] = new Block(Block.blockType.SteinORZ, steinORZImg, new Rectangle(0+i*32, 0+j*32, 32, 8));
 					break;
 					
 				case SteinOLZ:
-					block[i][j] = new Block(Block.blockType.SteinOLZ, steinOLZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					block[i][j] = new Block(Block.blockType.SteinOLZ, steinOLZImg, new Rectangle(0+i*32, 0+j*32, 32, 8));
 					break;
 					
 				case SteinURZ:
-					block[i][j] = new Block(Block.blockType.SteinURZ, steinURZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					block[i][j] = new Block(Block.blockType.SteinURZ, steinURZImg, new Rectangle(0+i*32, 24+j*32, 32, 8));
 					break;
 					
 				case SteinULZ:
-					block[i][j] = new Block(Block.blockType.SteinULZ, steinULZImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					block[i][j] = new Block(Block.blockType.SteinULZ, steinULZImg, new Rectangle(0+i*32, 24+j*32, 32, 8));
 					break;
 					
 				case SteinORA:
-					block[i][j] = new Block(Block.blockType.SteinORA, steinORAImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					points = new float[] {0+i*32, 0+j*32, 32+i*32, 0+j*32, 32+i*32, 32+j*32, 24+i*32, 32+j*32, 24+i*32, 8+j*32, 0+i*32, 8+j*32};
+					
+					block[i][j] = new Block(Block.blockType.SteinORA, steinORAImg, new Polygon(points));
 					break;
 					
 				case SteinOLA:
-					block[i][j] = new Block(Block.blockType.SteinOLA, steinOLAImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					points = new float[] {0+i*32, 0+j*32, 32+i*32, 0+j*32, 32+i*32, 8+j*32, 8+i*32, 8+j*32, 8+i*32, 32+j*32, 0+i*32, 32+j*32};
+					
+					block[i][j] = new Block(Block.blockType.SteinOLA, steinOLAImg, new Polygon(points));
 					break;
 					
 				case SteinURA:
-					block[i][j] = new Block(Block.blockType.SteinURA, steinURAImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					points = new float[] {24+i*32, 0+j*32, 32+i*32, 0+j*32, 32+i*32, 32+j*32, 0+i*32, 32+j*32, 0+i*32, 24+j*32, 24+i*32, 24+j*32};
+					
+					block[i][j] = new Block(Block.blockType.SteinURA, steinURAImg, new Polygon(points));
 					break;
 					
 				case SteinULA:
-					block[i][j] = new Block(Block.blockType.SteinULA, steinULAImg, new Rectangle(24+i*32, 0+j*32, 8, 8));
+					points = new float[] {0+i*32, 0+j*32, 8+i*32, 0+j*32, 8+i*32, 24+j*32, 32+i*32, 24+j*32, 32+i*32, 32+j*32, 0+i*32, 32+j*32};
+					
+					block[i][j] = new Block(Block.blockType.SteinULA, steinULAImg, new Polygon(points));
 					break;
 					
 					
+					
+					
+					
+					
+					
+					
+				case tuerZu:
+					block[i][j] = new Block(Block.blockType.tuerZu, tuerZu, new Rectangle(0+i*32, 0+j*32, 8, 32));
+					break;
 					
 					
 					

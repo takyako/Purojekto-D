@@ -18,13 +18,13 @@ public class Menu extends StateBasedGame{
 	}
 
 	public static void main(String[] args) {
-		AppGameContainer app;
+		AppGameContainer appgc;
 		try {
-			app = new AppGameContainer(new Menu("Title"));
-			app.setDisplayMode(1200, 800, false);
-			app.setTargetFrameRate(60);
-			app.setVSync(true);
-			app.start();
+			appgc = new AppGameContainer(new Menu("Title"));
+			appgc.setDisplayMode(1200, 800, false);
+			appgc.setTargetFrameRate(60);
+			appgc.setVSync(true);
+			appgc.start();
 			
 			
 		} catch (SlickException ex) {
