@@ -2,13 +2,13 @@ package main;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Shape;
-
+@Deprecated
 public class Block {
 
 	private blockType type;
 	private Image img;
 	private Shape hitbox;
-	
+	@Deprecated
 	public Block(blockType type, Image img, Shape hitbox) {
 		this.type = type;
 		this.img = img;
@@ -16,20 +16,20 @@ public class Block {
 	}
 
 	//test
-	
+	@Deprecated
 	public Image getImg() {
 		return img;
 	}
 	
-	
+	@Deprecated
 	public blockType getType() {
 		return type;
 	}
-	
+	@Deprecated
 	public Shape getHitbox () {
 		return hitbox;
 	}
-	
+	@Deprecated
 	public enum blockType{
 		
 		Stein,

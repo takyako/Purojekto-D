@@ -109,7 +109,7 @@ public class Offset {
 	}
 	
 
-	public static void tick(Block[][] block, int px, int py) {
+	public static void tick(/*Block[][] block,*/ int px, int py) {
 for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so gemacht, damit sich die Figur schneller bewegt)
 		
 		boolean canMoveUp = tryMove(Offset.Up, block, px, py);

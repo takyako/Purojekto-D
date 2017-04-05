@@ -13,7 +13,8 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameWindow extends BasicGameState{
 
 //	private SpriteSheet sheet;
-	private static Block[][] block;
+//	private static Block[][] block;
+	private MapManager map;
 	
 	private static Input input;
 	
@@ -37,8 +38,8 @@ public class GameWindow extends BasicGameState{
 		Player.initPlayer();
 		
 		//map init
-		MapManager map = new MapManager("map1.png");
-		block = map.init();
+		map = new MapManager("map1.png");
+//		block = map.init();
 		
 		//input init
 		input = gc.getInput();
@@ -93,7 +94,7 @@ public class GameWindow extends BasicGameState{
 		//Bewegung ausführen
 
 //		Offset.tick();
-		Offset.tick(block, ((gc.getWidth()/2-32))/2, ((gc.getHeight()/2-32))/2);
+		Offset.tick(/*block, */((gc.getWidth()/2-32))/2, ((gc.getHeight()/2-32))/2);
 //}	
 		
 		
@@ -123,11 +124,20 @@ public class GameWindow extends BasicGameState{
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {  //TODO nur das was man sieht zeichnen, nicht alle Hitboxen beachten. Alles auf ein Bild packen und dieses Zeichnen, statt alles einzeln zu zeichnen!!!
 		
 		//Bloecke zeichnen
-		for (int i = 0; i < block.length; i++) {
-			for (int j = 0; j < block[0].length; j++) {
-				block[i][j].getImg().draw(i*64+Offset.getX(), j*64+Offset.getY(), 64, 64); // kp ob das so gut ist die Bilder im Array zu speichern, da dies redundant ist und vllt nicht so gut für die Performance
-			}
+//		for (int i = 0; i < block.length; i++) {
+//			for (int j = 0; j < block[0].length; j++) {
+//				block[i][j].getImg().draw(i*64+Offset.getX(), j*64+Offset.getY(), 64, 64); // kp ob das so gut ist die Bilder im Array zu speichern, da dies redundant ist und vllt nicht so gut für die Performance
+//			}
+//		}
+
+		
+		for (int i = 0; i < map.getHeight(); i++) {
+			for (int j = 0; j < map.getWidth(); j++) {
+				map.getImage(map.getTile(i, j)).draw(i*64+Offset.getX(), j*64+Offset.getY(), 64, 64); // kp ob das so gut ist die Bilder im Array zu speichern, da dies redundant ist und vllt nicht so gut für die Performance
+			}																						//wird nicht meht im Array gespeichert. Nur hoffen das alles funktioniert.
 		}
+		
+		
 		
 
 		
