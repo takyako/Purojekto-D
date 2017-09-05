@@ -4,16 +4,16 @@ import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
+import test.Test;
+
 public class Offset {
 
 	
-	public static final String Up = "up";
+	public static final String Up = "up"; // kann ich theoretisch als enums machen
 	public static final String Down = "down";
 	public static final String Left = "left";
 	public static final String Right = "right";
 	
-	
-	//TODO später alles wieder private machen
 	
 	private static int x;
 	private static int y;
@@ -36,7 +36,7 @@ public class Offset {
 	private static String lastMove = Down;
 	
 	
-	public static Block[][] block;
+//	public static Block[][] block;
 
 	
 	public Offset() {}
@@ -110,31 +110,27 @@ public class Offset {
 	
 
 	public static void tick(/*Block[][] block,*/ int px, int py) {
+		if (Offset.isMoving()) {
 for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so gemacht, damit sich die Figur schneller bewegt)
 		
-		boolean canMoveUp = tryMove(Offset.Up, block, px, py);
-		boolean canMoveDown = tryMove(Offset.Down, block, px, py);
-		boolean canMoveLeft = tryMove(Offset.Left, block, px, py);
-		boolean canMoveRight = tryMove(Offset.Right, block, px, py);
+		boolean canMoveUp = tryMove(Offset.Up/*, block*/, px, py);
+		boolean canMoveDown = tryMove(Offset.Down/*, block*/, px, py);
+		boolean canMoveLeft = tryMove(Offset.Left/*, block*/, px, py);
+		boolean canMoveRight = tryMove(Offset.Right/*, block*/, px, py);
 		
 		if (canMoveUp) {Offset.y += upGeschwindigkeit;}
 		if (canMoveDown) {Offset.y -= downGeschwindigkeit;}
 		if (canMoveLeft) {Offset.x += leftGeschwindigkeit;}
 		if (canMoveRight) {Offset.x -= rightGeschwindigkeit;}
-		
-		
-//		if ( !canMoveUp) {	//hatte eigentlich ein smoothes bewegen vor, aber dann will das mit den Hitboxen nicht so wirklich. Muss später mal gucken
-//			upGeschwindigkeit = 0;
-//		} else {
-			if (Offset.moveUp) {
-				if (upGeschwindigkeit < maxGeschwindigkeit) {
-					upGeschwindigkeit++;
-				}
-			} else if (upGeschwindigkeit > 0) {
-				upGeschwindigkeit--;
-			}
-//		}
 
+
+		if (Offset.moveUp) {
+			if (upGeschwindigkeit < maxGeschwindigkeit) {
+				upGeschwindigkeit++;
+			}
+		} else if (upGeschwindigkeit > 0) {
+			upGeschwindigkeit--;
+		}
 
 		if (Offset.moveDown) {
 			if (downGeschwindigkeit < maxGeschwindigkeit) {
@@ -144,7 +140,6 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 			downGeschwindigkeit--;
 		}
 
-
 		if (Offset.moveRight) {
 			if (rightGeschwindigkeit < maxGeschwindigkeit) {
 				rightGeschwindigkeit++;
@@ -153,7 +148,6 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 			rightGeschwindigkeit--;
 		}
 
-
 		if (Offset.moveLeft) {
 			if (leftGeschwindigkeit < maxGeschwindigkeit) {
 				leftGeschwindigkeit++;
@@ -161,7 +155,9 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 		} else if (leftGeschwindigkeit > 0) {
 			leftGeschwindigkeit--;
 		}
+
 }
+	}
 	}
 
 
@@ -174,25 +170,24 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 	 * @param py
 	 * @return true wenn man sich dorthin bewegen kann
 	 */
-	private static boolean tryMove(String direction, Block[][] block, int px, int py) {
+	private static boolean tryMove(String direction/*, Block[][] block*/, int px, int py) { //TODO später wieder einbauen
 		
-//		Shape playeroderso = new Rectangle(px+1, py+1, 32-2, 32-2);	//ist das so OK? TODO Achja, der bekommt ja eh noch ne eigene Klasse
+//		Shape playertempoderso = new Rectangle(/*px+*/Player.hitboxX+1, /*py+*/Player.hitboxY+1, Player.hitboxWidth-2, Player.hitboxHeight-2); // TODO später aus der Playerklasse holen
+		Shape playertempoderso = new Rectangle(1200/2/2/2-32+28, 800/2/2/2-32+24, 64/2/2/2, 64/2/2);
 		
-		Shape playeroderso = new Rectangle(px+Player.hitboxX+1, py+Player.hitboxY+1, Player.hitboxWidth-2, Player.hitboxHeight-2);
-
 		
 		if (direction == Offset.Up) {
-			playeroderso.setY(playeroderso.getY()-upGeschwindigkeit);
-			return checkIfHit(block, playeroderso);
+			playertempoderso.setY(playertempoderso.getY()-upGeschwindigkeit);
+			return checkIfHit(/*block,*/ playertempoderso);
 		} else if (direction == Offset.Down) {
-			playeroderso.setY(playeroderso.getY()+downGeschwindigkeit);
-			return checkIfHit(block, playeroderso);
+			playertempoderso.setY(playertempoderso.getY()+downGeschwindigkeit);
+			return checkIfHit(/*block,*/ playertempoderso);
 		} else if (direction == Offset.Left) {
-			playeroderso.setX(playeroderso.getX()-leftGeschwindigkeit);
-			return checkIfHit(block, playeroderso);
+			playertempoderso.setX(playertempoderso.getX()-leftGeschwindigkeit);
+			return checkIfHit(/*block,*/ playertempoderso);
 		} else if (direction == Offset.Right) {
-			playeroderso.setX(playeroderso.getX()+rightGeschwindigkeit);
-			return checkIfHit(block, playeroderso);
+			playertempoderso.setX(playertempoderso.getX()+rightGeschwindigkeit);
+			return checkIfHit(/*block,*/ playertempoderso);
 		}
 
 		return true;
@@ -204,26 +199,36 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 	 * @param playeroderso
 	 * @return true wenn man sich dorthin bewegen kann
 	 */
-	public static boolean checkIfHit(Block[][] block, Shape playeroderso) {
-		for (int i = 0; i < block.length; i++) {
-			for (int j = 0; j < block[0].length; j++) {
-				if (block[i][j].getHitbox() != null) {
+	public static boolean checkIfHit(/*Block[][] block,*/ Shape playeroderso) { //Später wieder einbauen
+		
+		
+		int startx = 0;//((Offset.getX() / 64)-7)*-1;
+		int endx = 50;//((Offset.getX() / 64)-9)*-1;
+		int starty = 0;//((Offset.getY() / 64)-6)*-1;
+		int endy = 50;//((Offset.getY() / 64)-8)*-1;
+		
+//		System.out.println(startx + "|" + endx + "|" + starty + "|" + endy);
+		
+		for (int i = startx; i < /*Handler.getMap().getHeight()*/ endx; i++) {
+			for (int j = starty; j < /*Handler.getMap().getWidth()*/ endy; j++) {
+				if (Handler.getMap().getHitbox(i*16+j) != null) {
+	 				int tile = Handler.getMap().getTile(i, j);
+					
+					tile--;
+					
+					
+						Polygon pol = Handler.getMap().getHitbox(tile);
+//						Test.pol = pol;
+						if (pol != null) {
+							pol = GameWindow.editPol(pol, i, j);
+							
+							Test.pol = pol;
+							Test.player = playeroderso;
+							if (pol.intersects(playeroderso)) {
+								return false;
+							}
+						}
 
-					float[] temp = block[i][j].getHitbox().getPoints();
-					float[] newPoints = new float[temp.length];
-					
-					for (int p = 0; p < temp.length; p+=2) {
-//							tempPoints[p] = block[i][j].getHitbox().getPoint(p). + Offset.getX();
-						newPoints[p] = temp[p] + Offset.getX()/2;
-						newPoints[p+1] = temp[p+1] + Offset.getY()/2;
-					}
-					
-//						Rectangle temp = new Rectangle(block[i][j].getHitbox().getX()+Offset.getX()/2, block[i][j].getHitbox().getY()+Offset.getY()/2, block[i][j].getHitbox().getWidth(), block[i][j].getHitbox().getHeight());
-//						if (temp.intersects(playeroderso)) {
-					if (new Polygon(newPoints).intersects(playeroderso)) {
-//							System.out.println(block[i][j].getHitbox().getX() + " | " + block[i][j].getHitbox().getMaxX() + " | " + block[i][j].getHitbox().getY() + " | " + block[i][j].getHitbox().getMaxY() + " | " + block[i][j].getType() + " | " + geschwindigkeit);
-						return false;
-					}
 				}
 			}
 		}
@@ -245,7 +250,7 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 	///////////////////////////////////////////////////////////////////////////////////////////
 	
 	
-	public static boolean getMoveUp() {
+	public static boolean getMoveUp() { // Sollte das nicht in den Player
 		return Offset.moveUp;
 	}
 	
@@ -261,6 +266,12 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 		return Offset.moveRight;
 	}
 	
+	public static boolean isMoving() {
+		if (Offset.moveDown || Offset.moveUp || Offset.moveRight || Offset.moveLeft) {
+			return true;
+		}
+		return false;
+	}
 	
 	
 	

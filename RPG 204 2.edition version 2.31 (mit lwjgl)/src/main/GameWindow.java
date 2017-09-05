@@ -1,20 +1,25 @@
 package main;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import test.Test;
 
 public class GameWindow extends BasicGameState{
 
 //	private SpriteSheet sheet;
 //	private static Block[][] block;
-	private MapManager map;
+	private MapManager map; // über den Handler zugreifen
 	
 	private static Input input;
 	
@@ -38,7 +43,8 @@ public class GameWindow extends BasicGameState{
 		Player.initPlayer();
 		
 		//map init
-		map = new MapManager("map1.png");
+		map = new MapManager("map1.json");
+		Handler.setMap(map);
 //		block = map.init();
 		
 		//input init
@@ -122,7 +128,7 @@ public class GameWindow extends BasicGameState{
 	
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {  //TODO nur das was man sieht zeichnen, nicht alle Hitboxen beachten. Alles auf ein Bild packen und dieses Zeichnen, statt alles einzeln zu zeichnen!!!
-		
+
 		//Bloecke zeichnen
 //		for (int i = 0; i < block.length; i++) {
 //			for (int j = 0; j < block[0].length; j++) {
@@ -130,16 +136,13 @@ public class GameWindow extends BasicGameState{
 //			}
 //		}
 
-		
+		// Blöcke zeichnen neu
 		for (int i = 0; i < map.getHeight(); i++) {
 			for (int j = 0; j < map.getWidth(); j++) {
-				map.getImage(map.getTile(i, j)).draw(i*64+Offset.getX(), j*64+Offset.getY(), 64, 64); // kp ob das so gut ist die Bilder im Array zu speichern, da dies redundant ist und vllt nicht so gut für die Performance
-			}																						//wird nicht meht im Array gespeichert. Nur hoffen das alles funktioniert.
+				map.getImage(map.getTile(i, j)).draw(i*64+Offset.getX(), j*64+Offset.getY(), 64, 64);
+			}
 		}
 		
-		
-		
-
 		
 		//player zeichnen
 //		sheet.getSubImage(0, 12).draw(gc.getWidth()/2-32, gc.getHeight()/2-32, 64, 64);
@@ -238,37 +241,112 @@ public class GameWindow extends BasicGameState{
 		
 //		if (debug) {
 		//Hitbox des Spielers zeichnen
-		g.draw(new Rectangle(((gc.getWidth()/2-32)+Player.hitboxX*2), ((gc.getHeight()/2-32)+Player.hitboxY*2), Player.hitboxWidth*2, Player.hitboxHeight*2));
+//		g.draw(new Rectangle(((gc.getWidth()/2-32)+Player.hitboxX*2), ((gc.getHeight()/2-32)+Player.hitboxY*2), Player.hitboxWidth*2, Player.hitboxHeight*2));
 
 		//restliche Hitboxen zeichnen
 		g.scale(2, 2);
-		for (int i = 0; i < block.length; i++) {
-			for (int j = 0; j < block[0].length; j++) {
-				if (block[i][j].getHitbox() != null) {
-//					g.draw(block[i][j].getHitbox());
-//					g.draw(new Rectangle(block[i][j].getHitbox().getX()+Offset.getX()/2, block[i][j].getHitbox().getY()+Offset.getY()/2, block[i][j].getHitbox().getWidth(), block[i][j].getHitbox().getHeight()));
-					
-					float[] temp = block[i][j].getHitbox().getPoints();
-					float[] newPoints = new float[temp.length];
-					
-					for (int p = 0; p < temp.length; p+=2) {
-//						tempPoints[p] = block[i][j].getHitbox().getPoint(p). + Offset.getX();
-						newPoints[p] = temp[p] + Offset.getX()/2;
-						newPoints[p+1] = temp[p+1] + Offset.getY()/2;
+//		for (int i = 0; i < block.length; i++) { // TODO später wenn ich die wieder einbastle
+//			for (int j = 0; j < block[0].length; j++) {
+//				if (block[i][j].getHitbox() != null) {
+////					g.draw(block[i][j].getHitbox());
+////					g.draw(new Rectangle(block[i][j].getHitbox().getX()+Offset.getX()/2, block[i][j].getHitbox().getY()+Offset.getY()/2, block[i][j].getHitbox().getWidth(), block[i][j].getHitbox().getHeight()));
+//					
+//					float[] temp = block[i][j].getHitbox().getPoints();
+//					float[] newPoints = new float[temp.length];
+//					
+//					for (int p = 0; p < temp.length; p+=2) {
+////						tempPoints[p] = block[i][j].getHitbox().getPoint(p). + Offset.getX();
+//						newPoints[p] = temp[p] + Offset.getX()/2;
+//						newPoints[p+1] = temp[p+1] + Offset.getY()/2;
+//					}
+////					System.out.println(block[1][0].getHitbox().getX() + block[1][0].getHitbox().getY());
+////					if (i == 0 && j == 1)
+////					System.out.println(temp[0]);
+//					
+//					g.draw(new Polygon(newPoints));
+//					
+//				}
+//			}
+//		}
+		
+		
+		
+		g.scale(2,2);
+		
+		for (int i = 0; i < 50; i++) {
+			for (int j = 0; j < 50; j++) {
+//				if (Handler.getMap().getHitbox(i*16+j) != null) {
+ 				int tile = map.getTile(i, j);
+				
+				tile--;
+				
+				
+					Polygon pol = Handler.getMap().getHitbox(tile);
+//					Test.pol = pol;
+					if (pol != null) {
+						g.draw(editPol(pol, i, j));
 					}
-//					System.out.println(block[1][0].getHitbox().getX() + block[1][0].getHitbox().getY());
-//					if (i == 0 && j == 1)
-//					System.out.println(temp[0]);
-					
-					g.draw(new Polygon(newPoints));
-					
-				}
+
+//				}
 			}
 		}
+		
+		
+		g.setColor(Color.red);
+		
+		if (Test.pol != null) {
+			g.draw(Test.pol);
+		}
+		if (Test.player != null) {
+			g.draw(Test.player);
 		}
 		
+		g.setColor(Color.white);
+		}
+		
+		
+		
+		
+		
+		
+		// Test
+//		if (Test.pol != null)
+//		g.draw(Test.pol);
+		
+		// Test
+		
 	}
-
+	
+	
+	/**
+	 * das polygon so umwandeln, dass ich das einfach zeichnen kann.
+	 * @param pol
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static Polygon editPol(Polygon pol, int x, int y) {
+		List<Float> list = new ArrayList<Float>();
+//		float[] newPoints = new float[pol.getPointCount()];
+		
+		for (int i = 0; i < pol.getPointCount(); i++) {
+			float[] points = pol.getPoint(i);
+			
+			list.add(points[0] + ((x)*16));
+			list.add(points[1] + ((y)*16));
+							
+		}
+		
+		float[] newPoints = new float[list.size()];
+		
+		for (int i = 0; i < newPoints.length; i++) {
+			newPoints[i] = list.get(i);
+		}
+		
+		Polygon newPol = new Polygon(newPoints);
+		
+		return newPol;
+	}
 
 	@Override
 	public int getID() {

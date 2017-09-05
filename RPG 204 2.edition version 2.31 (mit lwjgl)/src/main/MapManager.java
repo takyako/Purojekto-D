@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.util.Log;
 
 public class MapManager {
@@ -22,6 +23,7 @@ public class MapManager {
 	private int[][] map = null;
 	private int height;
 	private int width;
+	private JSONObject obj = null;
 	
 	public MapManager(String name) {
 //		map = new Map(name);
@@ -41,27 +43,50 @@ public class MapManager {
 	}
 	
 	
-	private int[][] getMap (String path) throws IOException {
-		int[][] map = null;
-		JSONObject obj = null;
+	
+	
+	
+	private void readJsonMap(String path) throws IOException {
 		BufferedReader br = null;
+		InputStream is = null;
+		InputStreamReader isr = null;
 		
 		try {
-			InputStream is = new FileInputStream(path);
-			InputStreamReader isr = new InputStreamReader(is);
+			is = new FileInputStream(path);
+			isr = new InputStreamReader(is);
 			br = new BufferedReader(isr);
-			
+
 			String line = null;
 			StringBuilder jsonData = new StringBuilder();
-			
+
 			line = br.readLine();
 			while (line != null) {
 				jsonData.append(line + "\n");
 				line = br.readLine();
 			}
-			
+
 			obj = new JSONObject(jsonData.toString());
-			
+		} catch (FileNotFoundException ex) {
+			Log.error(ex);
+		} catch (IOException ex) {
+			Log.error(ex);
+		} catch (JSONException ex) {
+			Log.error(ex);
+		} finally {
+			br.close();
+			is.close();
+			isr.close();
+		}
+	}
+	
+	
+	private int[][] getMap (String path) throws IOException {
+		readJsonMap(path);
+		
+		int[][] map = null;
+		
+		
+		try {
 			JSONArray layerArray = obj.getJSONArray("layers");
 			JSONObject layerObject = layerArray.getJSONObject(0);
 			
@@ -82,29 +107,73 @@ public class MapManager {
 
 		} catch (JSONException e) {
 			Log.error(e);
-		} catch (FileNotFoundException e) {
-			Log.error(e);
-		} catch (IOException e) {
-			Log.error(e);
-		} finally {
-			br.close();
 		}
 		return map;
 	}
 
 	
-	public Image getImage(int position) {
-		int x = position / width;
-		int y = position % height;
-		
-		return sprite.getSubImage(x, y);
-	}
-	
-	
 	
 	/////////////////////////////////
 	////    getter/setter        ////
 	/////////////////////////////////
+	
+	
+	public Polygon getHitbox(int position) {
+		Polygon p = null;
+		
+		try {
+			JSONArray tilesetsArray = obj.getJSONArray("tilesets");
+			JSONObject tilesetObject = tilesetsArray.getJSONObject(0);
+			
+			JSONObject tilesObject = tilesetObject.getJSONObject("tiles");
+			
+			JSONObject finalTile = null;
+			if (tilesObject.has(String.valueOf(position))) {
+				finalTile = tilesObject.getJSONObject(String.valueOf(position)); // hier gebe ich an, welches Tile ich haben will
+			} else {
+				return null;
+			}
+			
+			JSONObject objectgroupObject = finalTile.getJSONObject("objectgroup");
+			
+			JSONArray objectsArray = objectgroupObject.getJSONArray("objects");
+			JSONObject objectsObject = objectsArray.getJSONObject(0);
+			
+			JSONArray polylineArray = objectsObject.getJSONArray("polyline");
+			
+			float[] points = new float[polylineArray.length()*2];
+			
+			
+			for (int i = 0; i < polylineArray.length()*2; i+=2) {
+				JSONObject polylineObject = polylineArray.getJSONObject(i/2);
+				points[i] = (float) polylineObject.getDouble("x")+Offset.getX()/4;
+				points[i+1] = (float) polylineObject.getDouble("y")+Offset.getY()/4;
+			}
+			
+			p = new Polygon(points);
+			
+			
+			
+			
+		} catch (JSONException ex) {
+			Log.error(ex);
+		}
+		return p;
+		
+	}
+
+	
+	public Image getImage(int position) {
+		if (position == 0) {
+			return sprite.getSubImage(15*16, 15*16, 16, 16);
+		} else {
+			position--;
+			int x = position % 16;
+			int y = position / 16;
+			return sprite.getSubImage(x*16, y*16, 16, 16);
+		}
+	}
+
 	
 	
 	public int getTile(int x, int y) {
@@ -125,7 +194,8 @@ public class MapManager {
 
 
 //	public static void main(String[] args) {
-//		new MapManager("src\\maps\\map1.json");
+//		MapManager m = new MapManager("map1.json");
+//		m.getHitbox(1);
 //	}
 
 
