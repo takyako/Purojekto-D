@@ -273,12 +273,12 @@ public class GameWindow extends BasicGameState{
 		
 		g.scale(2,2);
 		
-		for (int i = 0; i < 50; i++) {
-			for (int j = 0; j < 50; j++) {
+		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < 100; j++) {
 //				if (Handler.getMap().getHitbox(i*16+j) != null) {
  				int tile = map.getTile(i, j);
 				
-				tile--;
+//				tile--;
 				
 				
 					Polygon pol = Handler.getMap().getHitbox(tile);

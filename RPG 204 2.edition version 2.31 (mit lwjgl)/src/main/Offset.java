@@ -170,7 +170,7 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 	 * @param py
 	 * @return true wenn man sich dorthin bewegen kann
 	 */
-	private static boolean tryMove(String direction/*, Block[][] block*/, int px, int py) { //TODO später wieder einbauen
+	private static boolean tryMove(String direction/*, Block[][] block*/, int px, int py) {
 		
 //		Shape playertempoderso = new Rectangle(/*px+*/Player.hitboxX+1, /*py+*/Player.hitboxY+1, Player.hitboxWidth-2, Player.hitboxHeight-2); // TODO später aus der Playerklasse holen
 		Shape playertempoderso = new Rectangle(1200/2/2/2-32+28, 800/2/2/2-32+24, 64/2/2/2, 64/2/2);
@@ -199,22 +199,21 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 	 * @param playeroderso
 	 * @return true wenn man sich dorthin bewegen kann
 	 */
-	public static boolean checkIfHit(/*Block[][] block,*/ Shape playeroderso) { //Später wieder einbauen
+	public static boolean checkIfHit(/*Block[][] block,*/ Shape playeroderso) {
 		
 		
 		int startx = 0;//((Offset.getX() / 64)-7)*-1;
-		int endx = 50;//((Offset.getX() / 64)-9)*-1;
+		int endx = 100;//((Offset.getX() / 64)-9)*-1;
 		int starty = 0;//((Offset.getY() / 64)-6)*-1;
-		int endy = 50;//((Offset.getY() / 64)-8)*-1;
+		int endy = 100;//((Offset.getY() / 64)-8)*-1;
 		
 //		System.out.println(startx + "|" + endx + "|" + starty + "|" + endy);
 		
 		for (int i = startx; i < /*Handler.getMap().getHeight()*/ endx; i++) {
 			for (int j = starty; j < /*Handler.getMap().getWidth()*/ endy; j++) {
-				if (Handler.getMap().getHitbox(i*16+j) != null) {
 	 				int tile = Handler.getMap().getTile(i, j);
-					
-					tile--;
+				if (Handler.getMap().getHitbox(tile) != null) {
+//					tile--;
 					
 					
 						Polygon pol = Handler.getMap().getHitbox(tile);
@@ -222,10 +221,12 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 						if (pol != null) {
 							pol = GameWindow.editPol(pol, i, j);
 							
-							Test.pol = pol;
 							Test.player = playeroderso;
 							if (pol.intersects(playeroderso)) {
+								Test.pol = pol;
 								return false;
+							} else {
+//								Test.pol = null;
 							}
 						}
 
