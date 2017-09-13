@@ -8,23 +8,20 @@ import test.Test;
 
 public class Offset {
 
-	
-	public static final String Up = "up"; // kann ich theoretisch als enums machen
-	public static final String Down = "down";
-	public static final String Left = "left";
-	public static final String Right = "right";
-	
+	public static enum richtung {
+		Up,
+		Down,
+		Left,
+		Right
+	}
 	
 	private static int x;
 	private static int y;
-	
-	
 	
 	private static boolean moveUp = false;
 	private static boolean moveDown = false;
 	private static boolean moveRight = false;
 	private static boolean moveLeft = false;
-	
 	
 	private static final int maxGeschwindigkeit = 1;
 	private static int upGeschwindigkeit = 0;
@@ -32,12 +29,8 @@ public class Offset {
 	private static int downGeschwindigkeit = 0;
 	private static int leftGeschwindigkeit = 0;
 	
+	private static richtung lastMove = null;
 	
-	private static String lastMove = Down;
-	
-	
-//	public static Block[][] block;
-
 	
 	public Offset() {}
 	
@@ -61,47 +54,47 @@ public class Offset {
 	
 	
 	
-	public static void move(String direction) {
+	public static void move(richtung direction) {
 		switch(direction) {
-		case Offset.Up:
+		case Up:
 			moveUp = true;
-			lastMove = Offset.Up;
+			lastMove = richtung.Up;
 			break;
 			
-		case Offset.Down:
+		case Down:
 			moveDown = true;
-			lastMove = Offset.Down;
+			lastMove = richtung.Down;
 			break;
 			
-		case Offset.Left:
+		case Left:
 			moveLeft = true;
-			lastMove = Offset.Left;
+			lastMove = richtung.Left;
 			break;
 			
-		case Offset.Right:
+		case Right:
 			moveRight = true;
-			lastMove = Offset.Right;
+			lastMove = richtung.Right;
 			break;
 		
 		}
 	}
 
 	
-	public static void moveNotMore(String direction) {
+	public static void moveNotMore(richtung direction) {
 		switch(direction) {
-		case Offset.Up:
+		case Up:
 			moveUp = false;
 			break;
 			
-		case Offset.Down:
+		case Down:
 			moveDown = false;
 			break;
 			
-		case Offset.Left:
+		case Left:
 			moveLeft = false;
 			break;
 			
-		case Offset.Right:
+		case Right:
 			moveRight = false;
 		break;
 		
@@ -109,15 +102,18 @@ public class Offset {
 	}
 	
 
-	public static void tick(/*Block[][] block,*/ int px, int py) {
-		if (Offset.isMoving()) {
-for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so gemacht, damit sich die Figur schneller bewegt)
-		
-		boolean canMoveUp = tryMove(Offset.Up/*, block*/, px, py);
-		boolean canMoveDown = tryMove(Offset.Down/*, block*/, px, py);
-		boolean canMoveLeft = tryMove(Offset.Left/*, block*/, px, py);
-		boolean canMoveRight = tryMove(Offset.Right/*, block*/, px, py);
-		
+	public static void tick(int px, int py) {
+		Shape playertempoderso = new Rectangle(1200/2/2/2-32+28, 800/2/2/2-32+24, 64/2/2/2, 64/2/2);
+
+		if (!Offset.isMoving()) {
+			return;
+		}
+
+		boolean canMoveUp = tryMove(playertempoderso, richtung.Up, px, py);
+		boolean canMoveDown = tryMove(playertempoderso, richtung.Down, px, py);
+		boolean canMoveLeft = tryMove(playertempoderso, richtung.Left, px, py);
+		boolean canMoveRight = tryMove(playertempoderso, richtung.Right, px, py);
+
 		if (canMoveUp) {Offset.y += upGeschwindigkeit;}
 		if (canMoveDown) {Offset.y -= downGeschwindigkeit;}
 		if (canMoveLeft) {Offset.x += leftGeschwindigkeit;}
@@ -155,11 +151,37 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 		} else if (leftGeschwindigkeit > 0) {
 			leftGeschwindigkeit--;
 		}
-
-}
+		
+		
+		pickUpItems(playertempoderso);
+		
+		
 	}
-	}
 
+	
+	private static void pickUpItems(Shape playertempoderso) {
+
+		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < 100; j++) {
+
+				Shape s = Handler.getMap().getItemHitbox(i, j);
+				if (s == null) {
+					continue;
+				}
+				
+//				Test.addPol(s);
+				Test.addPol(playertempoderso);
+				
+				if (playertempoderso.intersects(s)) {
+					
+					System.out.println("Item pick up");
+					
+					
+				}
+				
+			}
+		}
+	}
 
 
 	/**
@@ -170,26 +192,24 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 	 * @param py
 	 * @return true wenn man sich dorthin bewegen kann
 	 */
-	private static boolean tryMove(String direction/*, Block[][] block*/, int px, int py) {
+	private static boolean tryMove(Shape playertempoderso, richtung direction, int px, int py) {
 		
 //		Shape playertempoderso = new Rectangle(/*px+*/Player.hitboxX+1, /*py+*/Player.hitboxY+1, Player.hitboxWidth-2, Player.hitboxHeight-2); // TODO später aus der Playerklasse holen
-		Shape playertempoderso = new Rectangle(1200/2/2/2-32+28, 800/2/2/2-32+24, 64/2/2/2, 64/2/2);
+//		Shape playertempoderso = new Rectangle(1200/2/2/2-32+28, 800/2/2/2-32+24, 64/2/2/2, 64/2/2);
 		
-		
-		if (direction == Offset.Up) {
+		if (direction == richtung.Up) {
 			playertempoderso.setY(playertempoderso.getY()-upGeschwindigkeit);
-			return checkIfHit(/*block,*/ playertempoderso);
-		} else if (direction == Offset.Down) {
+			return checkIfHit(playertempoderso);
+		} else if (direction == richtung.Down) {
 			playertempoderso.setY(playertempoderso.getY()+downGeschwindigkeit);
-			return checkIfHit(/*block,*/ playertempoderso);
-		} else if (direction == Offset.Left) {
+			return checkIfHit(playertempoderso);
+		} else if (direction == richtung.Left) {
 			playertempoderso.setX(playertempoderso.getX()-leftGeschwindigkeit);
-			return checkIfHit(/*block,*/ playertempoderso);
-		} else if (direction == Offset.Right) {
+			return checkIfHit(playertempoderso);
+		} else if (direction == richtung.Right) {
 			playertempoderso.setX(playertempoderso.getX()+rightGeschwindigkeit);
-			return checkIfHit(/*block,*/ playertempoderso);
+			return checkIfHit(playertempoderso);
 		}
-
 		return true;
 	}
 
@@ -199,37 +219,32 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 	 * @param playeroderso
 	 * @return true wenn man sich dorthin bewegen kann
 	 */
-	public static boolean checkIfHit(/*Block[][] block,*/ Shape playeroderso) {
-		
-		
+	private static boolean checkIfHit(Shape playeroderso) {
+
 		int startx = 0;//((Offset.getX() / 64)-7)*-1;
 		int endx = 100;//((Offset.getX() / 64)-9)*-1;
 		int starty = 0;//((Offset.getY() / 64)-6)*-1;
 		int endy = 100;//((Offset.getY() / 64)-8)*-1;
-		
+
 //		System.out.println(startx + "|" + endx + "|" + starty + "|" + endy);
-		
+
 		for (int i = startx; i < /*Handler.getMap().getHeight()*/ endx; i++) {
 			for (int j = starty; j < /*Handler.getMap().getWidth()*/ endy; j++) {
-	 				int tile = Handler.getMap().getTile(i, j);
+				int tile = Handler.getMap().getTile(i, j);
 				if (Handler.getMap().getHitbox(tile) != null) {
-//					tile--;
-					
-					
-						Polygon pol = Handler.getMap().getHitbox(tile);
-//						Test.pol = pol;
-						if (pol != null) {
-							pol = GameWindow.editPol(pol, i, j);
-							
-							Test.player = playeroderso;
-							if (pol.intersects(playeroderso)) {
-								Test.pol = pol;
-								return false;
-							} else {
-//								Test.pol = null;
-							}
-						}
 
+					Polygon pol = Handler.getMap().getHitbox(tile);
+					if (pol != null) {
+						pol = GameWindow.editPol(pol, i, j);
+
+						Test.player = playeroderso;
+						if (pol.intersects(playeroderso)) {
+							Test.pol = pol;
+							return false;
+						} else {
+							Test.pol = null;
+						}
+					}
 				}
 			}
 		}
@@ -237,11 +252,11 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 	}
 
 	
-	////////
+////////
 	
 	
 	
-	public static String getLastMove() {
+	public static richtung getLastMove() {
 		return lastMove;
 	}
 	
@@ -263,7 +278,7 @@ for(int f = 0; f < 6; f++) {//weiß nicht ob ich das so machen soll (Habe das so 
 		return Offset.moveLeft;
 	}
 	
-	public static boolean getMooveRight() {
+	public static boolean getMoveRight() {
 		return Offset.moveRight;
 	}
 	

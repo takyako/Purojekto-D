@@ -4,6 +4,8 @@ public class Handler { // TODO
 
 	
 	private static MapManager map = null;
+	private static ItemManager item = null;
+	
 	
 	public Handler() {
 	
@@ -22,6 +24,12 @@ public class Handler { // TODO
 		return Handler.map;
 	}
 	
+	public static void setItem(ItemManager item) {
+		Handler.item = item;
+	}
 	
+	public static ItemManager getItem() {
+		return Handler.item;
+	}
 	
 }

@@ -24,7 +24,6 @@ public class ItemManager {
 		try {
 			itemSheet = new SpriteSheet("img/Items.png", 16, 16);
 		} catch (SlickException ex) {
-//			e.printStackTrace();
 			Log.error(ex);
 		}
 		
@@ -52,6 +51,9 @@ public class ItemManager {
 		return itemSheet.getSubImage(y, x);
 	}
 	
+	public int getAnzahl() {
+		return this.anzahl;
+	}
 	
 	
 }

@@ -28,7 +28,7 @@ public class Inventar {
 		}
 		
 		
-		//content intiialisieren
+		//content initialisieren
 		content = new Items[inventarSize][inventarSize];
 		
 		for (int i = 0; i < content.length; i++) {

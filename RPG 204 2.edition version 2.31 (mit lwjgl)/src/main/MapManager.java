@@ -16,22 +16,22 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.util.Log;
 
 public class MapManager {
 
-	SpriteSheet sprite;
+	private SpriteSheet sprite;
 	private int[][] map = null;
 	private Map<Integer, Polygon> hitbox = null;
 	private int height;
 	private int width;
 	private JSONObject obj = null;
+	private int[][] mapItem = null;
 	
 	public MapManager(String name) {
 		initMap(name);
 		initSprite();
-		
-		
 		
 	}
 	
@@ -39,6 +39,13 @@ public class MapManager {
 		try {
 			map = loadMap("src\\maps\\" + name);
 			hitbox = loadHitbox();
+			
+			
+			mapItem = new int[height][width];
+			
+			mapItem[3][3] = 1;
+			
+			
 		} catch (IOException e) {
 			Log.error(e);
 		}
@@ -52,11 +59,19 @@ public class MapManager {
 		}	
 	}
 	
-	
-	private void readJsonMap(String path) throws IOException {
+	/**
+	 * Laden der Map 
+	 * 
+	 * @param path
+	 * @return 
+	 * @throws IOException
+	 * @throws JSONException 
+	 */
+	private JSONObject readJsonMap(String path) throws IOException, JSONException {
 		BufferedReader br = null;
 		InputStream is = null;
 		InputStreamReader isr = null;
+		StringBuilder jsonData = null;
 		
 		try {
 			is = new FileInputStream(path);
@@ -64,26 +79,23 @@ public class MapManager {
 			br = new BufferedReader(isr);
 
 			String line = null;
-			StringBuilder jsonData = new StringBuilder();
+			jsonData = new StringBuilder();
 
 			line = br.readLine();
 			while (line != null) {
 				jsonData.append(line + "\n");
 				line = br.readLine();
 			}
-
-			obj = new JSONObject(jsonData.toString());
 		} catch (FileNotFoundException ex) {
 			Log.error(ex);
 		} catch (IOException ex) {
-			Log.error(ex);
-		} catch (JSONException ex) {
 			Log.error(ex);
 		} finally {
 			br.close();
 			is.close();
 			isr.close();
 		}
+		return obj = new JSONObject(jsonData.toString());
 	}
 	
 	/**
@@ -94,12 +106,11 @@ public class MapManager {
 	 * @throws IOException
 	 */
 	private int[][] loadMap (String path) throws IOException {
-		readJsonMap(path);
-		
 		int[][] map = null;
 		
-		
 		try {
+			obj = readJsonMap(path);
+			
 			JSONArray layerArray = obj.getJSONArray("layers");
 			JSONObject layerObject = layerArray.getJSONObject(0);
 			
@@ -128,12 +139,10 @@ public class MapManager {
 	 * @return
 	 */
 	private Map<Integer, Polygon> loadHitbox() {
-//		Polygon[][] polMap = new Polygon[100][100];
 		Map<Integer, Polygon> polMap = new HashMap<Integer, Polygon>();
 		
 		try {
 			for (int i = 0; i < 10000; i++) {
-//					int position = i+j*16;
 				int position = i;	
 				
 					JSONArray tilesetsArray = obj.getJSONArray("tilesets");
@@ -152,6 +161,8 @@ public class MapManager {
 					
 					JSONArray objectsArray = objectgroupObject.getJSONArray("objects");
 					JSONObject objectsObject = objectsArray.getJSONObject(0);
+					int offsetX = objectsObject.getInt("x");
+					int offsetY = objectsObject.getInt("y");
 					
 					JSONArray polylineArray = objectsObject.getJSONArray("polyline");
 					
@@ -160,11 +171,10 @@ public class MapManager {
 					
 					for (int k = 0; k < polylineArray.length()*2; k+=2) {
 						JSONObject polylineObject = polylineArray.getJSONObject(k/2);
-						points[k] = (float) polylineObject.getDouble("x")+Offset.getX()/4;
-						points[k+1] = (float) polylineObject.getDouble("y")+Offset.getY()/4;
+						points[k] = (float) polylineObject.getDouble("x")+Offset.getX()/4 +offsetX;
+						points[k+1] = (float) polylineObject.getDouble("y")+Offset.getY()/4 +offsetY;
 					}
 					
-//					polMap[i][j] = new Polygon(points);
 					polMap.put(i, new Polygon(points));
 					
 				}
@@ -192,7 +202,6 @@ public class MapManager {
 		}
 		
 		float[] pn = new float[p.getPointCount()*2];
-//		List<Float> pn = new ArrayList<Float>();
 		
 		for (int i = 0; i < p.getPointCount(); i++) {
 			float[] p1 = p.getPoint(i);
@@ -205,46 +214,6 @@ public class MapManager {
 		
 		return new Polygon(pn); 
 		
-//		Polygon p = null;
-//		
-//		try {
-//			JSONArray tilesetsArray = obj.getJSONArray("tilesets");
-//			JSONObject tilesetObject = tilesetsArray.getJSONObject(0);
-//			
-//			JSONObject tilesObject = tilesetObject.getJSONObject("tiles");
-//			
-//			JSONObject finalTile = null;
-//			if (tilesObject.has(String.valueOf(position))) {
-//				finalTile = tilesObject.getJSONObject(String.valueOf(position)); // hier gebe ich an, welches Tile ich haben will
-//			} else {
-//				return null;
-//			}
-//			
-//			JSONObject objectgroupObject = finalTile.getJSONObject("objectgroup");
-//			
-//			JSONArray objectsArray = objectgroupObject.getJSONArray("objects");
-//			JSONObject objectsObject = objectsArray.getJSONObject(0);
-//			
-//			JSONArray polylineArray = objectsObject.getJSONArray("polyline");
-//			
-//			float[] points = new float[polylineArray.length()*2];
-//			
-//			
-//			for (int i = 0; i < polylineArray.length()*2; i+=2) {
-//				JSONObject polylineObject = polylineArray.getJSONObject(i/2);
-//				points[i] = (float) polylineObject.getDouble("x")+Offset.getX()/4;
-//				points[i+1] = (float) polylineObject.getDouble("y")+Offset.getY()/4;
-//			}
-//			
-//			p = new Polygon(points);
-//			
-//			
-//			
-//			
-//		} catch (JSONException ex) {
-//			Log.error(ex);
-//		}
-//		return p;
 	}
 
 	
@@ -275,7 +244,23 @@ public class MapManager {
 		return width;
 	}
 	
+	public int getItem(int x, int y) {
+		return mapItem[x][y];
+	}
 	
+	public Shape getItemHitbox(int x, int y) {
+		if (getItem(x, y) == 0) {
+			return null;
+		}
+			int px = x*32+Offset.getX();
+			int py = y*32+Offset.getY();
+			
+		return new Polygon(new float[] {px, py, px+32, py, px + 32, py+32, px, py + 32});
+	}
+	
+//	public Image getEntity(int x, int y) {
+//		int id = getEntityId(x, y);
+//	}
 
 
 //	public static void main(String[] args) {
